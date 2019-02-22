@@ -1,0 +1,724 @@
+\documentclass[12pt]{article}
+\usepackage[french]{babel}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{courier}
+%\renewcommand{\familydefault}{\ttdefault}
+%\usepackage{euler} 
+
+\usepackage{dsfont}
+\usepackage{amsmath} % to create a \cste operator 
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts} 
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{url}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage[all]{xy}
+\usepackage{amsmath,calligra,mathrsfs}
+\DeclareMathOperator{\cste}{cste}
+% operators
+\DeclareMathOperator{\aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+  \DeclareMathOperator{\br}{Br}
+  \DeclareMathOperator{\cl}{cl}
+  \DeclareMathOperator{\cosp}{cosp}
+  \DeclareMathOperator{\dv}{div}
+  \DeclareMathOperator{\Div}{Div}
+  \DeclareMathOperator{\ext}{Ext^{1}}
+  \DeclareMathOperator{\Ext}{\mathscr{E}\text{\kern -2pt {\calligra\large xt}}\,\,} % sheaf ext
+  \DeclareMathOperator{\gal}{Gal}
+  \DeclareMathOperator{\gl}{GL}
+  \DeclareMathOperator{\gr}{gr}
+  \DeclareMathOperator{\h}{H}
+  \DeclareMathOperator{\hh}{\mathsf{H}} % hypercohomology?
+  \DeclareMathOperator{\shom}{\mathscr{H}\text{\kern -3pt {\calligra\large om}}\,} % sheaf hom
+  \DeclareMathOperator{\im}{im}
+  \DeclareMathOperator{\ob}{Ob}
+  \DeclareMathOperator{\pgl}{PGL}
+  \DeclareMathOperator{\pic}{Pic} 
+  \DeclareMathOperator{\res}{R} % restriction of scalars
+  \DeclareMathOperator{\rHom}{\mathrm{R}\vspace{-1pt}\mathscr{H}\text{\kern -3pt {\calligra\large om}}\,}
+  \DeclareMathOperator{\sh}{Sh}
+  \DeclareMathOperator{\spe}{sp} % specialisation
+  \DeclareMathOperator{\spec}{Spec}
+  \DeclareMathOperator{\swan}{Sw}
+  \DeclareMathOperator{\tor}{Tor}
+  \DeclareMathOperator{\Tor}{\mathscr{T}\text{\kern -4pt {\calligra\large or}}\,} % sheaf tor
+  \DeclareMathOperator{\tr}{Tr}
+ \DeclareMathOperator{\rg}{rg}
+ \DeclareMathOperator{\degr}{deg}
+%\DeclareMathOperator{\dim}{dim}
+\DeclareMathOperator{\coh}{Coh(\mathbb{P}_{k}^{1})}
+\DeclareMathOperator{\P1}{\mathbb{P}_{k}^{1}}
+\DeclareMathOperator{\cok}{Coker}
+\DeclareMathOperator{\sn}{\mathfrak{S}_n}
+\DeclareMathOperator{\Fq}{\mathbb{F}_{q}}
+\DeclareMathOperator{\hac}{H(\coh)}
+\DeclareMathOperator{\hactx}{H(\coh_{\tor[x]})}
+\DeclareMathOperator{\hact}{H(\coh_{\tor})}
+\DeclareMathOperator{\hacl}{H(\coh_{l})}
+\DeclareMathOperator{\alpv}{\alpha^{\vee}}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\mult}{mult}
+\DeclareMathOperator{\go}{\overset{o}{\mathfrak{g}}}
+\DeclareMathOperator{\pio}{{\overset{o}{\Pi}}}
+\DeclareMathOperator{\h0}{\overset{o}{\mathfrak{h}}}
+\DeclareMathOperator{\w0}{\overset{o}{W}}
+\DeclareMathOperator{\hod}{\overset{o}{\mathfrak{h}^{\ast}}}
+\DeclareMathOperator{\Deltao}{\overset{o}{\Delta}}
+\DeclareMathOperator{\sl2}{Sl_2}
+% les bras et les kets
+\newcommand{\bra}[1]{\langle\,#1\,|}
+\newcommand{\ket}[1]{|\,#1\,\rangle}
+\newcommand{\braket}[2]{\ensuremath{\langle\, #1 \mid  #2\, \rangle }}
+\newcommand{\moy}[1]{\langle\,#1\,\rangle}
+\newcommand{\vac}{\mathrm{vac}}
+\newcommand{\zero}{\mathbb{0}}
+%Prop, def, theo cadre maths:
+\theoremstyle{definition}
+\newtheorem{theo}{Théorème}[section]
+\newtheorem{Prop}{Proposition}[section]
+\newtheorem{ex}{Exemple}[section]
+\newtheorem{cor}{Corollaire}[section]
+\newtheorem{lemma}{Lemme}[section]
+\newtheorem{preuve}{Preuve}[section]
+\newtheorem{rem}{Remarque}[section]
+\newtheorem{cdt}{Condition}[section]
+\newtheorem{Def}{Définition}[section]
+\title{Algèbre de Hall des faisceaux Cohérent sur la droite projective}
+\author{Guillaume Corlouer}
+
+
+\begin{document}
+\maketitle
+\pagebreak
+\tableofcontents
+\pagebreak
+\section{Résumé} 
+On explicite un isomorphisme entre l'algèbre de Hall des faisceaux cohérent sur la droite projective et une certaine sous algèbre "positive" de $U_q(\widehat{sl}_{2})$ en suivant l'article \cite{Baum}. On commence par des généralités sur les algèbres de Hall qui sont des algèbres de convolution de fonction à support fini sur des catégorie abéliennes de dimension globale finie. On se concentre ensuite exclusivement sur l'exemple de la catégorie des faisceaux cohérents sur la droite projective. Des théorèmes élémentaires de géométrie algébrique d'annulation de Serre et  de classification de Grothendieck nous permettrons de décomposer l'étude de l'algèbre de Hall de la catégorie des faisceaux cohérents sur $\P1$ en produit de l'algèbre de Hall engendré par des faisceaux de torsions supportés en des points fermés de $\P1$ et des faisceaux localement libres. L'utilisation de fonctions génératrices issues de la théorie des fonctions symétriques nous permettra alors de relier l'algèbre de Hall des faisceaux cohérents sur la droite projective à une sous algèbre positive de $U_{q}(\widehat{sl}_{2})$ en se basant sur une présentation donné par Drienfel'd et une décomposition de celle-ci à la PBW. Moralement on constate que les faisceaux localement libres correspondent aux générateurs des espaces de racines réelles positives et les faisceaux de torsions supportés en des points fermés aux générateurs des espaces de racines imaginaires positives de l'affinisé de $sl_2$.
+\pagebreak
+\section{Introduction}
+
+Moralement les algèbres de Hall décrivent les groupes d'extension d'objets d'une catégorie abélienne $\mathcal{A}$. Plus précisément étant donné deux objets $M$ et $N$ de $\mathcal{A}$ on définit un produit associatif de la classe $[M]$ par la classe $[N]$ comme la somme sur les extensions de $M$ par $N$ dont les coefficients parfois appelés \textit{nombres de Hall} comptent le nombre de fois où $R$ est extension de $M$ par $N$. Pour que cette somme soit finie il faut que les groupes d'extensions soient finis, on parle alors de catégorie \textit{finitaire}. Bien sûr cette algèbre n'est pas commutative en général puisque $\ext(M,N)\neq\ext(N,M)$ en général en revanche, elle est associative avec unité. Une autre approche plus "géométrique" permet d'interpréter l'algèbre de Hall comme une algèbre de convolution de fonctions à support fini sur les classes d'isomorphisme d'une catégorie abélienne $\mathcal{A}$. \vspace{0.5cm}
+
+Dans ce mémoire on s'intéressera particulièrement à un exemple de catégorie issu de la géométrie algébrique : la catégorie des faisceaux cohérents sur la droite projective avec des coefficients dans un corps fini. Cette catégorie a plusieurs propriétés agréables nous permettant de construire une structure d'algèbre de Hall. En effet nous verrons qu'elle est finitaire et de dimension homologique au plus un. Des théorèmes classiques dû à Serre et Grothendieck nous assureront que tout faisceau cohérent sur la droite projective est somme directe de faisceaux de torsions et de faisceaux localement libres, ces derniers se décompensant en somme directe des fibrés tautologique sur la droite projective. Ainsi l'étude de l'algèbre de Hall des faisceaux cohérents sur la droite projective se ramène à l'étude de l'algèbre de Hall des faisceaux localement libres et de torsion.\vspace{0.5cm}
+
+Dressons un bref historique des algèbres de Hall, leurs liens avec d'autres branches des mathématiques et de ce qui a motivé la recherche d'un tel isomorphisme. Un intérêt de l'étude des algèbres de Hall est né de la découverte par Ringel dans les années 90 d'un isomorphisme entre l'algèbre de Hall de la catégorie des représentations de dimension finis d'un carquois $Q$ (sur corps fini) et une sous algèbre positive de l'algèbre quantique  enveloppante d'une algèbre de Lie semi-simple complexe dont le diagramme de Dynkin associé correspond au graphe non orienté du carquois $Q$. Ainsi les algèbres de Hall ont permis d'étendre les liens établis par Gabriel et Kac entre la théorie des représentations des carquois de type fini (respectivement modéré) avec la structure des algèbres de Lie semi-simples (respectivement affines). \vspace{0.5cm}
+
+Dans ce mémoire on ne s'intéressera pas à la catégories des représentations de dimension finie d'un carquois même elle est relié à notre catégorie de faisceaux cohérents sur la droite projective d'après un théorème de Beilinson \cite{Beil}. Plus généralement, la catégorie des faisceaux cohérents sur une courbe projective lisse sur un corps fini fournit un autre exemple de catégorie finitaire de dimension homologique un sur laquelle on peut construire une structure d'algèbre de Hall. Dans un article de Kapranov \cite{Kapranov} l'algèbre de Hall est vue dans le contexte des formes automorphes sur le corps de fonctions d'une courbe projective lisse et c'est à la suite de cet article que P. Baumman et C. Kassel ont publié l'article \cite{Baum} dont le but est d'expliciter un isomorphisme annoncé par Kapranov (th 5.2.1 \cite{Kapranov}) entre l'algèbre de Hall des faisceaux cohérents sur la droite projective et une sous algèbre "positive" de l'algèbre quantique enveloppante de $\widehat{sl}_2$.\vspace{0.5cm}
+
+Le but du mémoire sera d'expliciter un isomorphisme entre une sous algèbre engendré par les faisceaux localement libres et les faisceaux de torsions d'une part et une sous algèbre "positive" de l'algèbre quantique enveloppante de $\widehat{sl}_2$ l'algèbre de Lie affine associée à $\widehat{sl}_2$.\vspace{0.5cm}
+
+ Ce travail n'est pas original et suit de près l'article \cite{Baum} dans lequel on peut trouver un tel isomorphisme (Th 26 p 25). \vspace{0.5cm}
+ 
+Dans un premier temps on définit l'algèbre de Hall $H(\mathcal{A})$ d'une catégorie abélienne finitaire et héréditaire $\mathcal{A}$. On présentera notamment la forme d'Euler sur le groupe de Grothendieck de $\mathcal{A}$ puis les nombres de Hall qui sont des constantes de structures de l'algèbre de Hall de $\mathcal{A}$ comptant le nombre de suites exactes entre des objets de la catégorie considérée . Dualement, nous verrons  que l'on peut construire une structure de cogèbre sur $H(\mathcal{A})$ en utilisant le coproduit de Green. On entreverra alors un lien avec des propriétés propres à la structure des groupes quantique (autodualité, non commutativité et non cocomutativité).\vspace{0.5cm}
+
+Ensuite on rappellera quelques résultats élémentaires de géométrie algébrique concernant la catégorie des faisceaux cohérents sur la droite projective afin de montrer que l'on peut effectivement construire une structure d'algèbre de Hall sur celle-ci. Deux résultats important que nous utiliserons pour simplifier l'étude de cette algèbre de Hall seront un théorème d'annulation de Serre et un théorème de classification de Grothendieck. Enfin nous étudierons plus précisément les extensions de faisceaux localement libres et de torsions pour calculer des nombres de Hall. Une équivalence de catégorie entre la catégorie des faisceaux de torsions supportés en des points fermés de $\P1$ et les modules de longueur finie sur un anneau de valuation discrète nous permettra d'identifier l'algèbre de Hall des faisceaux torsions à un produit d'algèbres de fonctions symétriques dont on rappellera des propriétés utiles pour l'exposé.\vspace{0.5cm}
+
+Utilisant la théorie des fonctions symétriques on construira une base d'une sous algèbre de l'algèbre de Hall des faisceaux cohérent sur $\P1$ à partir de fonctions génératrices contenant les fibrés tautologiques et les faisceaux de torsions afin d'exhiber une base d'une sous algèbre de l'algèbre de Hall des faisceaux cohérent sur $\P1$.\vspace{0.5cm}
+
+On rappellera également des résultats élémentaires sur les algèbres de Kac-Moody et particulièrement sur l'algèbre de Lie affine $\widehat{sl}_2$ et sa quantification.\vspace{0.5cm}
+
+Pour finir on explicitera un isomorphisme entre une sous algèbre positive $V$ de $U_q(\widehat{sl}_2)$ (en se basant sur une présentation dû à Drienfel'd) et une sous algèbre de l'algèbre de Hall des faisceaux cohérents sur la droite projective engendrée par les faisceaux localement libres et les faisceaux de torsions. 
+\pagebreak
+%Les algèbres de Hall permettent de relier certaines catégories abéliennes, finitaires et héréditaires avec la théorie des algèbres de Lie. Elles fournissent un formalisme pratique qui relie des objets géométrico-algébrique et de théorie de Lie. On construit un espace de module sur les classes d'isomorphismes d'une catégorie abélienne. L'algèbre de Hall est vue comme une algèbre de convolution de fonction à support finie sur les classes d'isomorphisme de la catégorie ambiante. Nous travaillons essentiellement sur un exemple de catégorie : la catégorie des faisceaux cohérents sur la droite projective. 
+\section{Algèbres de Hall}
+Il est possible de construire une structure d'algèbre associative avec unité sur l'ensemble des classes d'isomorphismes d'une catégorie abélienne, de dimension homologique au plus un et dont les groupes d'extensions sont finis (on parle de catégorie \textit{héréditaire} et \textit{finitaire}). On s'intéressera dans cette section aux \textit{algèbres de Hall} qui peuvent être vues comme algèbre de fonctions à support fini sur les classes d'isomorphismes d'une catégorie. Le produit de deux classes étant une combinaison linéaire sur leurs extensions dont les coefficient sont des nombres dit de Hall qui comptent le nombre de suites exactes courtes entre les deux classes dont on fait le produit. Il y a essentiellement deux exemples de catégories pour lesquelles il est possible d'effectuer une telle construction : la catégorie des faisceaux cohérents sur une courbe projective lisse et la catégorie des représentations de dimensions finies d'un carquois. Dans ce mémoire on s'intéresse au cas de la catégorie des faisceaux cohérents sur la droite projective.\\\\ La section qui suit présente quelques généralités sur les algèbres de Hall d'une catégorie abélienne finie dite héréditaire. On définit d'abord le groupe de Grothendieck, la forme d'Euler-Poincaré et quelques propriétés des nombres de Hall. Enfin on présente une structure de \textit{bigèbre tordue} sur l'algèbre de Hall et un accouplement de Hopf sur celle-ci, aussi appelé \textit{produit scalaire de Green} et induisant une auto-dualité sur l'algèbre de Hall de manière tout à fait similaire aux algèbres quantiques affines.  \\ On suppose les définitions de bigèbre et d'algèbre de Hopf connues. Cette section suit de près l'article \cite{Baum} (section 1) et \cite{schif} (Lecture 1).
+
+\subsection{Axiomes d'une catégorie finitaire et hériditaire, et forme d'Euler Poincaré}
+Soit $k$ un corps, $\mathcal{A}$ une catégorie abélienne vérifiant les conditions suivantes :
+\begin{description}\label{HA}
+\item[HA 1 :] $Iso(\mathcal{A})$ est un ensemble
+\item[HA 2 :] $\mathcal{A}$ est $k$ linéaire, c'est à dire que pour tout objet $V$ et $W$ dans $\mathcal{A}$, $\Hom_{\mathcal{A}}(V,W)$ et  $\ext_{\mathcal{A}}(V,W)$ sont  des $k$ espaces vectoriels . 
+\item[HA 3 :] Pour tout objet $V$ et $W$ dans $\mathcal{A}$, $\ext_{\mathcal{A}}(V,W)$ et $\Hom_{\mathcal{A}}(V,W)$ sont de dimension finie.
+\item[HA 4 :] $\mathcal{A}$ est une catégorie stable par extensions, ayant suffisamment d'injectifs (ou de projectifs) et de dimension homologique (ou globale) au plus un, c'est à dire que pour tout objet $V$ et $W$ dans $\mathcal{A}$, $$\mbox{Ext}^i(V,W)=0\quad\forall i>1$$
+%\item[HA 5 :] Tout objet de $\mathcal{A}$ admet une filtration de Jordan-Hölder. 
+\end{description}
+La  condition \textbf{HA 4} assure qu'une suite exacte courte entre trois objets $M,R,P$ de $\mathcal{A}$ induit une suite exacte longue en cohomologie dans laquelle au plus 6 premiers objets en homologie sont non nuls : \begin{equation}\label{homexa}
+ \xymatrix{
+     0 \ar[r]  & \Hom(M,N) \ar[r] &\Hom(R,N)\ar[r] & \Hom(P,N)\ar[dll] \\
+   & \ext(M,N)\ar[r]& \ext(R,N) \ar[r] & \ext(P,N) \ar[r] & 0} \\ 
+   \end{equation}
+Ces axiomes vont nous permettre de définir une structure d'algèbre, dite de Hall,  sur la catégorie $\mathcal{A}$. On appellera \textit{catégorie finitaire et héréditaire} une catégorie vérifiant  ces axiomes .\\\\
+
+Il est possible de définir une structure de groupe abélien sur la catégorie $\mathcal{A}$ via le \textit{groupe de Grothendieck}:
+\begin{Def}\label{K(A)} Soit $\mathcal{A}$ une catégorie abélienne, soit $[V]$ la classe d'isomorphisme de $V$ élément de $\mathcal{A}$. le groupe de Grothendieck, noté $K_0(\mathcal{A})$, est le groupe abélien libre engendré par les classes d'isomorphismes des objets de $\mathcal{A}$, autrement écrit :\\
+$$ K_0(\mathcal{A})=\underset{[V]\in Iso(\mathcal{A})}{\sum}\mathbb{Z}[V]$$ avec $[M]=[V]+[W]$ dès que M est une extension de $V$ par $W$ ou de $W$ par $V$.\\
+\end{Def}  En particulier le groupe de Grothendieck est engendré librement par les objets indécomposables de la catégorie considérée. Aussi le groupe de Grothendieck ne "distingue pas" si une suite exacte scinde ou non, en ce sens il fournit une première approximation de la catégorie ambiante. 
+%\begin{ex}Dans la cas de la catégorie des faisceaux cohérents sur la droite projective, $K_0(\P1)=\mathbb{Z}\oplus\pic(X)$ où $\pic(X)$ est le groupe de picard de $\P1$ c'est à dire le groupe des fibrés en droites inversibles sur $\P1$. En particulier connaissant les objets indécomposables de $\P1$, i.e les $O(n)$ on a $\pic(\P1)\simeq \mathbb{Z}$ et donc $K_0(\P1)\simeq\mathbb{Z}^2$ (voir section 2.1 pour les notations). \end{ex}
+\begin{Def}\label{Forme}
+\textnormal{On définit la forme d'Euler-Poincaré sur $\mathcal{A}$, biadditive par : $$\forall M, N\in \ob(\mathcal{A}),\quad \langle M, N\rangle = \dim_{k}(\Hom_{\mathcal{A}}(M,N))-\dim_{k}(\ext_{\mathcal{A}}(M,N))$$}
+\end{Def}
+Cette expression de la forme d'Euler-Poincaré est une généralisation de la caractéristique d'Euler-Poincaré pour le foncteur homologique $\Hom(-,-)$ dans le cas où la catégorie considérée est de dimension globale au plus 1. La forme d'Euler Poincaré descend sur le groupe de Grothendieck, c'est à dire qu'elle est biadditive sur les suites exactes courtes. On le vérifie aisément en utilisant la suite exacte longue en cohomologie précédente \ref{homexa} et la nullité de la somme alternée des dimensions le long des degrés d'une telle suite. 
+\begin{Def} On définit une forme bilinéaire symétrisée $(\quad,\quad) $ de la forme d'Euler-Poincaré de la façon suivante : $$\forall M, N\in \ob(\mathcal{A}),\quad \left(M,N\right)=\langle M, N\rangle + \langle N, M\rangle$$ \end{Def}
+%Cette forme symétrisée comporte des informations intéressante sur la catégorie ambiante. Dans le cas de la catégorie des représentations des carquois de type finis par exemple, un théorème de Gabriel assure que celle-ci correspond à la forme de Cartan du diagramme de Dynkin sous-jacent au carquois considéré. 
+\subsection{Nombres de Hall et algèbre de Hall}
+Dans toute la suite $\mathcal{A}$ désigne une catégorie finitaire et héréditaire. On construit une structure d'algèbre sur $Z=\mathbb{Z}[q,q^{-1}]/(v^2-q)$ dans laquelle le produit de deux classes d'isomorphismes est une somme sur les suites exactes entre ces deux classes pondérée par des nombres dit de Hall dont nous allons donner certaines propriétés.\vspace{0.5cm}
+
+Soit $k$ un corps fini à q éléments, soient $\alpha$, $\beta$, $\gamma$, trois classes d'isomorphismes de $\mathcal{A}$ et $M_{\alpha}$, $M_{\beta}$, $M_{\gamma}$ des représentants de ces classes dans $\ob(\mathcal{A})$. Moralement, le nombre de Hall que l'on note $\phi^{\beta}_{\alpha\gamma}$ compte le nombre de suites exactes entre $M_{\alpha}$, $M_{\beta}$ et $M_{\gamma}$ modulo les classes d'isomorphismes de $M_{\alpha}$ et $M_{\gamma}$ .\\
+Plus précisément soit $$S(\alpha,\beta,\gamma):=\{(f,g)\in\Hom_{\mathcal{A}}(M_{\gamma},M_{\beta})\times\Hom_{\mathcal{A}}(M_{\beta}, M_{\alpha}) | 0\longrightarrow M_{\gamma}\overset{f} \longrightarrow M_{\beta}\overset{g}\longrightarrow M_{\alpha}\longrightarrow 0\mbox{ exacte}\}  $$ Le groupe $G_{\gamma}\times G_{\alpha}$ agit librement sur $S(\alpha,\beta,\gamma)$ où $G_{\gamma}:=\aut(M_{\gamma})$ et $G_{\alpha}:=\aut(M_{\alpha})$ sont respectivement d'ordre $g_{\gamma}$ et $g_{\alpha}$. 
+\begin{Def} On définit le nombre de Hall $\phi^{\beta}_{\alpha\gamma}$ par:  $$\phi^{\beta}_{\alpha\gamma}=|S(\alpha,\beta,\gamma)|/g_{\alpha}g_{\gamma}=\vert\{X\subset M_{\beta}|M_{\beta}/X\simeq M_{\alpha}, X\simeq M_{\gamma}\}\vert$$ 
+\end{Def}
+\begin{rem}\textnormal{L'inclusion signifie que $X$ est un sous objet de $M_{\beta}$, c'est à dire qu'il existe un monomorphisme de $X$ vers $M_{\beta}$.}
+\end{rem} 
+Voici quelques propriétés des nombres de Hall qui nous seront utiles pour construire une structure d'algèbre associative avec unité sur la catégorie $\mathcal{A}$ :
+\begin{Prop}\label{Hanumb}\textnormal{
+Si $\alpha$, $\beta$, $\gamma$, $\mu$ sont des classes d'isomorphismes de $\mathcal{A}$ alors:
+\begin{enumerate} 
+\item Il n'y a qu'un nombre fini de classes d'isomorphismes $\beta$ telle que $\phi^{\beta}_{\alpha\gamma}\neq 0$.\\
+\item  $\phi^{\beta}_{\alpha 0}=\delta_{\beta\alpha}$ et $\phi^{\beta}_{0\gamma}=\delta_{\beta\gamma}$\\
+\item $q^{\dim_{k}\Hom_{\mathcal{A}}(M_{\alpha},M_{\gamma})}\phi^{\beta}_{\alpha\gamma}g_{\alpha}g_{\gamma}/g_{\beta}$ est un entier\\
+\item $\underset{\lambda\in Iso(\mathcal{A})}\sum \phi^{\beta}_{\alpha\gamma}g_{\alpha}g_{\gamma}/g_{\beta}=q^{\langle\alpha,\gamma\rangle}$
+\item $\underset{\beta\in Iso(\mathcal{A})}\sum \phi^{\beta}_{\alpha\gamma}\phi^{\mu}_{\lambda\beta}=\underset{\beta\in Iso(\mathcal{A})}\sum \phi^{\beta}_{\lambda\alpha}\phi^{\mu}_{\beta\gamma}$
+\end{enumerate}
+On constate d'après 1. que les sommes considérées sont finies.}
+\end{Prop}
+\begin{proof}
+\begin{enumerate}
+\item Pour tout objet $M_{\alpha}$, $M_{\gamma}$ de $\mathcal{A}$, $\ext_{\mathcal{A}}(M_{\alpha}, M_{\gamma})$ est fini par hypothèse donc $\phi^{\beta}_{\alpha\gamma}$ est non nul seulement pour un nombre fini de $\beta\in Iso(\mathcal{A})$.
+\item On considère la suite  $0\overset{f} {\longrightarrow} M_{\beta}\overset{g}{\longrightarrow} M_{\alpha}\longrightarrow 0$. Elle est exacte si et seulement si $g$ est un isomorphisme c'est à dire si et seulement si $\alpha=\beta$ d'où $\phi^{\beta}_{\alpha 0}=\delta_{\beta\alpha}$
+\item On va d'abord montrer un résultat intermédiaire (\cite{Ringel4} Proposition I.3.4), considérons le diagramme commutatif d'objets de $\mathcal{A}$ suivant:\\.
+$$\xymatrix{
+    & X' \ar[r]^{x}  \ar[d]^{d'} & X \ar[r]^{x'}\ar[d]^{d} & X''\ar[d]^{d''}\ar[r]& 0 \\
+    0\ar[r]& Y' \ar[r]^{y} & Y \ar[r]^{y'}& Y'' &
+  }$$\\
+Les applications x,x'y,y',d' et d'' sont fixées.\\
+Fait :  Le nombre d'applications d rendant le diagramme commutatif est $|\Hom_\mathcal{A}(X'',Y')|$.\\
+En effet définissons l'application : $$\begin{array}{ccccc}
+\mu & : & \Hom_{\mathcal{A}}(X'',Y') & \to & \mathcal{D}:=\{d\in  \Hom_{\mathcal{A}}(X,Y)|y'd=d''x', dx=yd'\}  \\
+ & & z & \mapsto & d_{0}+yzx' \\
+\end{array}$$\\
+Elle est bien définie puisque $y'y=0$ et $x'x=0$ (le produit étant la composition des applications).\\
+Elle est injective : Soient $z,z'\in \Hom_{\mathcal{A}}(X'',Y')$ tels que $yzx'=yz'x'$ alors $zx'=z'x'$ car y est injective et donc $z'=z$ car x est injective.\\
+Enfin elle est surjective : Soit $d\in\mathcal{D}$. On a $(d-d_{0})=yd'-yd'=0$ donc $d-d_{0}$ se factorise par le conoyau de x donc il existe $z':X''\to Y$ tel que $d-d_{0}=z'x'$. De même $y'(d-d_{0})=0=y'z'x'$ et par surjectivité de $x'$ on a $y'z'=0$ et donc $z'$ se factorise par le noyau de $y'$ c'est à dire l'image de $y$ par exactitude. Ainsi $z'=yz$ et donc $d-d_{0}=yzx'$.\\
+On fait ensuite agir $\aut(M_{\beta})$ de cardinal $g_{\beta}$ sur $S(\alpha,\beta,\gamma)$ selon le diagramme commutatif suivant : soit $\phi\in \aut(M_{\beta})$,
+$$\xymatrix{
+      & 0\ar[r] & M_{\gamma} \ar[r]^{f}  \ar[d]^{Id} & M_{\beta} \ar[r]^{g}\ar[d]^{\phi} & M_{\alpha}\ar[d]^{Id}\ar[r] & 0 & \\
+     & 0\ar[r] & M_{\gamma} \ar[r]^{\phi f} & M_{\beta} \ar[r]^{g\phi^{-1}}& M_{\alpha}\ar[r] & 0 &
+  }$$\\
+D'après le fait précédent $Stab_{(f,g)}(G_\beta)=|\Hom_{\mathcal{A}}(M_{\alpha},M_{\gamma})|$, la formule des orbites donne alors $\vert \aut(M_{\beta})/Stab_{(f,g)}(G_\beta)\vert = \vert \aut(M_{\beta})\cdot (f,g)\vert = g_{\beta}/|\Hom_{\mathcal{A}}(M_{\alpha},M_{\gamma})|$. Ainsi la taille des orbites ne dépend pas du couple $(f,g)$ et comme $S(\alpha,\beta,\gamma)$ est partitionnée par ses orbites sous l'action de $G_{\beta}$ il vient : $$\vert S(\alpha,\beta,\gamma)\vert = n(\alpha,\beta,\gamma)g_{\beta}/|\Hom_{\mathcal{A}}(M_{\alpha},M_{\gamma})|= n(\alpha,\beta,\gamma)g_{\beta}q^{-\dim_{k}(\Hom_{\mathcal{A}}(M_{\alpha},M_{\gamma}))}$$ où $n(\alpha,\beta,\gamma)$ est le nombre d'orbites de $S(\alpha,\beta,\gamma)$ sous l'action de $\aut(M_{\beta})$, l'entier recherché dans (3) est donc $n(\alpha,\beta,\gamma)$.\\
+\item Les orbites de $S(\alpha,\beta,\gamma)$ sont en bijection avec les éléments de la classe $\beta\in Iso(\mathcal{A})$ d'où :
+$$\underset{\beta\in Iso(\mathcal{A})}\sum\phi^{\beta}_{\alpha\gamma}g_{\alpha}g_{\gamma}/g_{\beta}=q^{-\dim_{k}(\Hom_{\mathcal{A}}(M_{\alpha},M_{\gamma}))}\underset{\beta=\gamma +\alpha}\sum n(\alpha,\beta,\gamma)=q^{-\dim_{k}(\Hom_{\mathcal{A}}(M_{\alpha},M_{\gamma}))}\vert \ext_{\mathcal{A}}(M_{\alpha},M_{\gamma})\vert $$
+\item Par définition du nombre de Hall, on a d'une part : \begin{align*}
+    \underset{\beta\in Iso(\mathcal{A})}\sum \phi^{\beta}_{\alpha\gamma}\phi^{\mu}_{\lambda\beta}& =  \underset{\beta\in Iso(\mathcal{A})}\sum\quad\underset{X\subset M_{\beta}, X'\subset M_{\mu}}\sum\mathds{1}_{M_{\alpha}}(M_{\beta}/X)\mathds{1}_{M_{\gamma}}(X)\mathds{1}_{M_{\lambda}}(M_{\mu}/X')\mathds{1}_{M_{\beta}}(X')\\
+   & =  \underset{X\subset X'\subset M_{\mu}}\sum\mathds{1}_{M_{\alpha}}(X'/X)\mathds{1}_{M_{\gamma}}(X)\mathds{1}_{M_{\lambda}}(M_{\mu}/X')
+\end{align*}
+et d'autre part : \begin{align*}
+    \underset{\beta\in Iso(\mathcal{A})}\sum \phi^{\beta}_{\lambda\alpha}\phi^{\mu}_{\beta\gamma}& =  \underset{\beta\in Iso(\mathcal{A})}\sum\quad\underset{X\subset M_{\beta}, X'\subset M_{\mu}}\sum\mathds{1}_{M_{\lambda}}(M_{\beta}/X)\mathds{1}_{M_{\alpha}}(X)\mathds{1}_{M_{\beta}}(M_{\mu}/X')\mathds{1}_{M_{\gamma}}(X')\\
+   & =  \underset{X'\subset M_{\mu}/X , X\subset M_{\mu}}\sum\mathds{1}_{M_{\alpha}}(X)\mathds{1}_{M_{\gamma}}(X')\mathds{1}_{M_{\lambda}}((M_{\mu}/X)/X')\\
+   & =  \underset{X\subset X'\subset M_{\mu}}\sum\mathds{1}_{M_{\alpha}}(X'/X)\mathds{1}_{M_{\gamma}}(X')\mathds{1}_{M_{\lambda}}((M_{\mu})/X')
+   \end{align*}
+On a utilisé le fait que Les sous objets de $M_{\mu}/X$ sont en bijections avec les sous objets de $M_{\mu}$ contenant X. L'application $\mathds{1}_\alpha$ est une application caractéristique sur les objets de $\mathcal{A}$, elle vaut 1 si $X\simeq M_\alpha$ et 0 sinon.
+\end{enumerate}
+\end{proof}
+\begin{Def}\textnormal{
+ Soient $\alpha,\gamma\in Iso(\mathcal{A})$, soit $Z=\mathbb{Z}[q,q^{-1}]/(v^2-q)$, soit $H(\mathcal{A})$ le $Z$-module libre engendré par les $\alpha\in Iso(\mathcal{A})$. D'après 1. et 3. de la proposition précédente la multiplication \begin{equation} \alpha\cdot\gamma=\underset{\beta\in Iso{\mathcal{A}}}\sum \phi^{\beta}_{\alpha\gamma}\beta \label{HAprod}\end{equation} définie une structure de $Z$ algèbre avec unité $[0]$ (2 prop \ref{Hanumb}). Cette algèbre est également associative d'après (5) de la prop \ref{Hanumb}}
+\end{Def}
+On peut également induire une structure de Z algèbre associative sur $H(\mathcal{A})$  via une multiplication notée $\ast$ telle que \begin{equation} \alpha\ast\gamma=v^{\langle \alpha,\gamma\rangle}\alpha\cdot\gamma \label{Ringprod}\end{equation} par biadditivité de la forme d'Euler Poincaré.
+\begin{rem} On peut effectuer le produit de $r$ classes d'isomorphisme dans l'algèbre de Hall en utilisant des filtrations : $$\alpha_1\ast ...\ast\alpha_r=v^{\underset{i<j}{\sum}\langle\alpha_i,\alpha_j\rangle}\underset{\beta\in Iso(\mathcal{A})}{\sum}\vert\{ L_r\subset...\subset L_1=M_{\beta}|L_i/L_{i+1}\cong M_{\alpha_i}\}\vert \beta$$  \end{rem}
+\begin{rem} Les produits dans l'algèbre de Hall définis précédemment ne sont pas commutatifs en général puisque les groupes d'extension $\ext(M,N)$ et $\ext(N,M)$ sont distincts en général.\end{rem}
+\subsection{Coproduit de Green et bigèbre de Hall tordue}
+ De façon duale on peut construire une structure de cogèbre sur $H(\mathcal{A})$ via un coproduit $\Delta$ et une co-unité $\epsilon : H(\mathcal{A})\to Z $ tels que :
+$$\begin{array}{ccccc}
+\Delta & : & H(\mathcal{A}) & \to & H(\mathcal{A})\otimes_Z H(\mathcal{A}) \\
+ & & \beta & \mapsto & \underset{\alpha,\gamma\in Iso(\mathcal{A})}{\sum}v^{\langle \alpha,\gamma\rangle}\frac{g_{\alpha}g_{\gamma}}{g_{\beta}}\phi^{\beta}_{\alpha\gamma}(\alpha\otimes\gamma) \\
+\end{array}$$ et $\epsilon(\beta)=\delta_{\beta 0}$
+\vspace{0.5cm}
+
+Le coproduit est bien défini si les objets de $\mathcal{A}$ possèdent une filtration finie par des indécomposables. En effet en ce cas étant donné une classe $\beta$ il n'y a qu'un nombre fini de $\alpha,\gamma\in Iso(\mathcal{A})$ tels que $M_{\beta}\in\ext(M_\alpha,M_\gamma)$. Si une telle filtration n'existe pas, il peut y avoir une infinité de façon de décomposer une classe et on peut éventuellement considérer un produit tensoriel complété, noté $\widehat{\otimes}$, au sens où $H(\mathcal{A})$ est vu comme une $Z$-algèbre topologique, munie de la topologie limite projective. La coassociativité se vérifie de façon similaire à l'associativité \cite{schif} (1.4). 
+
+On peut construire une structure de \textit{bigèbre tordue} sur $H(\mathcal{A})$ en considérant le produit \textit{tordu} suivant : $$(\alpha\otimes \beta)\cdot(\gamma\otimes \delta)=v^{\left(\beta,\gamma\right)}(\alpha\ast\gamma)\otimes(\beta\ast\delta)$$ Le coproduit $\Delta$ est à valeur dans $H(\mathcal{A})\widehat{\otimes} H(\mathcal{A})$ et la proposition suivante nous assure que le produit $\cdot$ tordu passe à la complétion.
+\begin{Prop} Soient $M,N\in\ob(\mathcal{A})$ le produit tordu $\Delta([M]).\Delta([N])$ converge dans $H(\mathcal{A})\widehat{\otimes} H(\mathcal{A})$ \end{Prop}
+\begin{proof}
+En effet, pour des classes $\alpha_1,\alpha_2,\gamma_1,\gamma_2\in Iso(\mathcal{A})$ en considérant les termes que l'on obtient en faisant le produit $\Delta([M]).\Delta([N])$, on a : \begin{itemize}
+\item les coefficients de $\alpha_1\otimes \gamma_1$ dans $\Delta([M])$ sont non nuls si et seulement si $0\to M_{\gamma_1} \to M\to M_{\alpha_1}\to 0$ est exacte
+\item les coefficients de $\alpha_2\otimes \gamma_2$ dans $\Delta([N])$ sont non nuls si et seulement si $0\to M_{\gamma_2} \to M\to M_{\alpha_2}\to 0$ est exacte
+\item Soit $\beta_1\in Iso(\mathcal{A})$, les coefficients de $\beta_1$  dans $\alpha_1\ast \alpha_2$  sont non nuls si et seulement si $0\to M_{\alpha_2}\to M_{\beta_1}\to M_{\alpha_1}\to 0$ est exacte
+\item Soit $\beta_2\in Iso(\mathcal{A})$, les coefficients de $\beta_2$ dans $\gamma_1\ast \gamma_2$ sont non nuls si et seulement si $0\to M_{\gamma_2}\to M_{\beta_2}\to M_{\gamma_1}\to 0$ est exacte
+\end{itemize}
+Ainsi $M_{\gamma_1}$ est isomorphe à l'image d'une application dans $\Hom(M,M_{\beta_2})$ et $M_{\gamma_2}$ s'identifie à l'image d'une application dans $\Hom(M_{\beta_1},M)$. Les espaces vectoriels $\Hom(M,M_{\beta_2})$ et $\Hom(M_{\beta_1},M)$ étant finis il n'y a qu'un nombre fini de termes non nuls dans la somme provenant de $\Delta([M]).\Delta([N])$ d'où la convergence du produit.
+\end{proof}
+Le théorème suivant dû à Green, dont la démonstration est assez longue et peut se trouver dans \cite{Green0}. Il est crucial pour construire donner une structure de bigèbre sur $H(\mathcal{A})$.
+\begin{theo} Le coproduit de Green $\Delta : H(\mathcal{A})\to H(\mathcal{A})\widehat{\otimes} H(\mathcal{A})$ est un morphisme d'algèbre. C'est à dire que l'on a $\Delta(x\ast y)=\Delta(x)\cdot \Delta(y)$ où $\cdot$ est le produit tordu définit précédemment.\end{theo}
+\begin{rem} On a fait dans cette section plusieurs abus de langage en parlant d'algèbre, il s'agit en fait d'algèbre topologique. \end{rem}
+\subsection{Produit scalaire de Green}
+Dans le cas de notre catégorie abélienne $\mathcal{A}$  héréditaire,  les algèbres de Hall sont \textit{auto-duales}. On peut alors définir une forme bilinéaire non dégénérée $\left(-,-\right)$.
+\begin{Prop}\cite{Green0} Le produit scalaire non dégénérée $ \left(-,-\right): H(\mathcal{A})\otimes H(\mathcal{A})\to Z$ et défini par $$(\alpha,\beta)=\frac{\delta_{M_\alpha,M_\beta}}{g_\beta}$$ est un accouplement de Hopf, c'est à dire que pour tout $x,y,z\in H(\mathcal{A})$ on a $$(xy,z)=(x\otimes y,\Delta(z))$$. \end{Prop}
+En effet, \begin{align*}
+(\alpha\ast\beta,\gamma)&=\underset{\delta\in Iso(\mathcal{A})}{\sum}v^{\langle\alpha,\beta\rangle}\phi^{\delta}_{\alpha\beta}(\delta,\gamma)\\
+&=v^{\langle\alpha\beta\rangle}\frac{1}{g_{\gamma}}\phi^{\gamma}_{\alpha\beta} 
+\end{align*}
+D'autre part, $$\left(\alpha\otimes\beta,\Delta(\gamma)\right)=v^{\langle\alpha,\beta\rangle}\frac{1}{g_{\gamma}}\phi^{\gamma}_{\alpha\beta} $$ en utilisant la bilinéarité du produit scalaire.
+\begin{rem}En général $H(\mathcal{A})$ n'est pas une bigèbre. On peut définir une algèbre de Hall \textit{étendue} notée $\widetilde{H}(\mathcal{A})$ en considérant l'action de l'algèbre de groupe $K:=Z[K_0(\mathcal{A})]$ du groupe de Grothendieck sur $H(\mathcal{A})$. On note $k_{\alpha}$ un représentant de la classe $\alpha\in K_0(\mathcal{A})$ dans $K$. Dans ce cas on définit : $$\widetilde{H}(\mathcal{A})=H(\mathcal{A})\otimes_Z K$$ où $K$ agit sur $H(\mathcal{A})$ via : $$\beta\cdot k_\alpha=v^{(\alpha,\beta)}\beta$$ et le coproduit $\Delta$ se prolonge naturellement à l'algèbre de Hall étendue avec $$\Delta(k_\alpha)=k_\alpha\otimes k_\alpha$$ et $$\Delta(\beta\otimes k_x)=\underset{\alpha,\gamma}{\sum}v^{\langle\alpha,\gamma\rangle}\frac{g_\alpha g_\gamma}{g_\beta}\phi^{\beta}_{\alpha\gamma}(k_x\otimes\alpha)\otimes(k_{x+\alpha}\otimes\gamma)$$ et $$\varepsilon(\beta\otimes k\alpha)=\delta_{\beta 0}$$ Ainsi $\widetilde{H}(\mathcal{A})$ est munie d'une structure de $Z$-bigèbre topologique. Enfin Jie Xiao a montré l'existence d'une antipode pour cette bigèbre (qui a du sens lorsque les objets de la catégorie admettent une filtration finie par des indécomposables) \cite{xia} \end{rem} 
+\pagebreak
+\section{Faisceaux Cohérents sur la droite projective}
+La catégorie des faisceaux cohérents sur la droite projective fournit un premier exemple de catégorie sur laquelle on peut construire une algèbre de Hall. Les calculs sont explicites et on a l'avantage de savoir classifier les objets indécomposables de la catégorie. En effet le théorème d'annulation de Serre nous permet de comprendre que tout faisceaux cohérent est somme directe d'un faisceau de torsion et d'un faisceau localement libre. De plus un théorème dû à Grothendieck et la classification des modules de torsion sur un anneau principal nous apprennent que les objets indécomposables de $\coh$ sont les $O(n)$ et des faisceaux de torsions supportés sur des points fermés de $\P1$. On verra que l'algèbre de Hall des faisceaux cohérents sur la droite projective est produit tensoriel d'une algèbre engendrée par les faisceaux localement libres et l'algèbre de Hall des faisceaux de torsion. Cette dernière se décompose comme produit d'algèbres de Hall de faisceaux supportés sur les points fermés de la droite projective qui s'identifient toutes à l'algèbre des fonctions symétriques par équivalence de catégorie avec l'algèbre de Hall des modules de longueur finie sur un anneau de valuation discrète \cite{Macdonald}. On donnera quelques relations entre classes d'isomorphismes de faisceaux localement libres et de torsion avec quelques nombres de Hall. L'utilisation de fonctions génératrices nous permettra d'exhiber une base d'une sous algèbre de l'algèbre de Hall des faisceaux cohérents sur $\P1$ engendrée par les $O(n)$ et les objets indécomposables de la catégories des faisceaux de torsion (vu comme fonctions symétriques élémentaires). Ce sera cette même base que l'on identifiera plus tard à une sous algèbre positive de l'algèbre quantique enveloppante de l'algèbre de Lie affine de $sl_2$.
+\subsection{Préliminaires}
+Dans cette section on fixe les notations et on rappel sans démonstration quelques résultats élémentaires de cohomologie des faisceaux.
+On note $\coh$ la catégorie des faisceaux cohérents sur la droite projective.\\
+\begin{Def}\textnormal{Soit k un corps, la droite projective notée $\P1$ est le recollement des deux schémas affines $U=\spec(k[X])$ et $V=\spec(k[Y])$ le long de l'isomorphisme $$\phi : k[X/Y]\longrightarrow k[Y/X] $$ avec $W=U\cap V =\spec(k[t,t^{-1}])$.} \end{Def} Rappelons qu'un faisceau $\mathcal{F}$ cohérent sur un schéma noetherien X est tel que $\mathcal{F}$ est localement isomorphe à un $\mathcal{O}_{X}$-module de type fini. C'est à dire par équivalence de catégories entre les A-modules de type finis et les faisceaux cohérents sur $\spec(A)$, on a pour une famille d'ouvert affines $(U_{i})_{i\in I}$ recouvrant X,  $$\mathcal{F}\vert_{U_{i}}=\widetilde{M}_{i}$$ avec $M_i$ un $A$-module de type fini. Ainsi la donnée d'un faisceau $\mathcal{F}$ cohérent sur la droite projective est équivalente à la donnée d'un triplet $(M,M',\varphi)$ avec $M$ un $k[t]$-module de type-fini et $M'$ un $k[t^{-1}]$-module de type fini et $\varphi : M[t^{-1}]\to M'[t]$ un isomorphisme  de $k[t,t^{-1}]$-modules de types finis (la localisation est un foncteur exact). Un faisceau cohérent sur $\P1$ est dit localement libre si $M$ et $M'$ sont respectivement des $k[t]$,$k[t^{-1}]$-modules libres de type fini. $\P1$ est naturellement muni d'un fibré en droite tautologique noté $O(1)$ et pour $n\in\mathbb{Z}$ on a $O(n)=O(1)^{\otimes n}$ et $O(-1)=\shom_{\coh}(O(1),O_{\mathbb{P}^{1}_{k}})=O(1)^{\vee}$, où $\shom(-,-)$ est le faisceau associé à $\Hom(-,-)$, les sections globales de $O(n)$ étant les polynômes homogènes de degré n dans $k[X,Y]$.\\ 
+Un faisceau cohérent sur $\P1$  est dit de torsion si $M$ et $M'$ sont respectivement des $k[t]$,$k[t^{-1}]$-modules de torsion. Soit $P$ un polynôme homogène irréductible de $k[X,Y]$ de degré $r$, soit \[f : O(-rd)\overset{\times P}{\longrightarrow} O(0)\] On a $\cok(f)\vert_{U}\simeq k[t]/(P(t,1)^{r})$ et $\cok(f)\vert_{V}\simeq k[t^{-1}]/(P(1,t^{-1})^{r})$. Pour x un point fermé de $\mathbb{P}^{1}_{k}$ associé à l'idéal maximal engendré par $P$, on notera $O_{r[x]}$ le faisceau     $\cok(f)$. On rappel des résultats élémentaires de cohomologie des faisceaux dont des démonstrations peuvent-être trouvée dans \cite{Hart} (chap III).\\ La proposition suivante nous assure que $\mathcal{A}$ a suffisamment d'injectifs : 
+\begin{Prop}\label{suffinj}\textnormal{\cite{Hart}(prop 2.2) Soit $(X,\mathcal{O}_{X})$ un espace annelé, la catégorie $\mathcal{M}od_{X}$ des faisceaux de $O_{X}$ modules a suffisamment d'injectifs.}\end{Prop} On a également un théorème d'annulation dû à Grothendieck, qui nous assure que $\coh$ est une catégorie de dimension homologique au plus 1 : 
+\begin{theo}\label{dim1}\textnormal{\cite{Hart}(theoreme 2.7) Soit $X$ un espace topologique noetherien de dimension d. Alors pour tout $i>n$ et pour tout faisceaux de groupe abéliens $\mathcal{F}$ sur $X$ on a $H^{i}(X,\mathcal{F})=0$}\end{theo}
+Un autre résultat important qui nous assurera que tout faisceau cohérent sur la droite projective est somme directe d'un faisceau de torsion et d'un faisceau localement libre est le théorème d'annulation de Serre :
+\begin{theo}: \textnormal{ \cite{Hart}(theoreme 3.7) Soit X un schéma affine noetherien, Si $\mathcal{F}$ est un faisceau cohérent sur $X$ alors $H^{i}(X,\mathcal{F})=0$ pour tout $i>0$}\end{theo}.
+\begin{cor}\label{corser} En conséquence toute extension de faisceaux cohérents sur un schéma $X$ est encore un faisceau cohérent. En effet il suffit de se ramener au cas où $X$ est affine car la cohérence est une notion locale, une suite exacte de faisceau cohérents donnera alors lieu à une suite exacte sur les sections globales par annulation de $H^{1}(X,\cdot)$ et le fait que toute extension de module de type fini sur un anneau est encore un module de type fini permet de conclure.\end{cor}\newpage
+Rappelons également un résultat classique de cohomologie des faisceaux cohérents sur l'espace projectif :
+\begin{theo}:\label{CohoPn}\cite{Hart} (théorème 5.1) Soit $A$ un anneau noetherien et $X=\mathbb{P}^{r}_{k}$ avec $r\geqslant 1$. Alors:\begin{enumerate}
+\item $H^{i}(X,O(n))=0$ pour $0<i<r$, pour tout $n\in\mathbb{Z}$
+\item $H^{r}(X,O(-r-1))\simeq A$,
+\item Dualité de Serre pour le projectif : l'application naturelle, $$H^{0}(X,O(n))\times H^{r}(X,O(-n-r-1))\to H^{r}(X,O(-r-1))$$ est un accouplement parfait de $A$-modules de types finis pour tout $n\in\mathbb{Z}$.
+\end{enumerate}
+\end{theo}
+Le théorème suivant est un théorème d'annulation de Serre conséquence du fait que tout faisceau cohérent sur un schéma projectif est quotient d'une somme directe de fibré en droite et du théorème précédent :
+\begin{theo}\label{Serrev}\cite{Hart} (III 5.2)Soit X un schéma projectif sur un anneau noetherien $A$. Soit $\mathcal{F}$ un faisceau cohérent sur X. Alors: \begin{enumerate}
+\item Pour tout $i\geqslant 1$, $H^i(X,\mathcal{F})$ est un $A$-module de type fini.
+\item Il existe un entier $n_0$ tel que pour tout $i>0$ et tout $n\geqslant n_0$, $H^i(X,\mathcal{F}(n))=0$
+\end{enumerate}  \end{theo}
+Le résultat suivant dû à Grothendieck \cite{Groth} nous indique que les objets indécomposables de la catégorie des faisceaux localement libres de rang fini sur $\mathbb{P}^{1}_{k}$ sont les $O(n)$ : 
+\begin{theo}\label{groth} Si $\mathcal{F}$ est un faisceau cohérent localement libre de rang r sur $\mathbb{P}^{1}_{k}$ alors $$\mathcal{F}\simeq O(n_{1})\oplus ...\oplus O(n_{r}) $$ où $n_{1}\leq ...\leq n_{r}$ sont des entiers relatifs uniquement déterminés.
+\end{theo}
+\begin{theo}\label{Riemroch} (\cite{Hart} IV 1.3)\textit{Riemmann-Roch}. Soit $X$ une courbe algébrique de genre $g$ sur $k$,  $\mathcal{L}$ un fibré en droite sur $X$, alors :  $$\dim_k H^{0}(X,\mathcal{L})-\dim_k H^{1}(X,\mathcal{L})=deg(\mathcal{L})+1+g=\chi(X,\mathcal{L})$$ avec $g:=\dim H^{1}(X,\mathcal{O}_X)$, $\chi$ la caractéristique d'Euler Poincaré.\end{theo}
+Le résultat suivant sur la fonction Zêta de Riemann nous sera utile dans la section \ref{fungen}. 
+\begin{Def} Soit $X$ un schéma de type fini sur $\Fq$, $X_{(0)}$ l'ensemble des points fermés de $X$, $N(x)=\vert k(x)\vert$. Pour $s\in\mathbb{C},Re(s)>1$ on a $$\zeta(X,s):= \underset{x\in X_{(0)}}{\prod}\frac{1}{1-N(x)^{-s}}$$ on définit aussi la fonction de partition : $$Z(X,t):=\exp(\sum_{n\geqslant 1}\vert X(\mathbb{F}_{q^n})\vert t^n/n)$$ avec la relation $$\zeta(X,s)=Z(X,q^{-s})$$\end{Def}
+\begin{Prop}\label{zeta}\cite{Hart}(appendix) Soit $s\in\mathbb{C},Re(s)>1$, alors : $$Z(\mathbb{P}^{n}_{\Fq},s)=\exp(\sum_{m\geqslant 1}(1+q^m+..+q^{nm})(t^n/n))=\frac{1}{(1-t)(1-qt)...(1-q^nt)}$$\end{Prop}
+%Tout faisceau cohérent sur $\P1$ provient d'un $A$-module gradué :
+%\begin{theo}\label{modgr}(Serre)Soit $Mod_A^{\mathbb{Z}}$ la catégorie des $\mathbb{Z}$-module gradués et $Modf_A^{\mathbb{Z}}$ la catégorie des ${\mathbb{Z}}$-modules gradués de dimension finie. Le foncteur : $$Mod_A^{\mathbb{Z}}/Modf_A^{\mathbb{Z}}\longrightarrow \coh$$ réalise une équivalence de catégorie \end{theo}
+Enfin la proposition suivante nous indique que l'on va pouvoir définir une structure d'algèbre de Hall sur la catégorie des faisceaux cohérents sur la droite projective :
+\begin{Prop} 
+\begin{enumerate}\label{HAco} Soit $\coh_{Tor}$ la catégorie des faisceaux de torsions et $\coh_{l}$ la catégorie des faisceaux localement libres sur $\P1$.
+\item $\coh$ est une catégorie finitaire et héréditaire. Les catégories $\coh_{Tor}$ et $\coh_{l}$ sont stables par extensions. %et $\coh_{Tor}$ vérifie \textbf{HA 5}.
+\item Tout faisceau cohérent $\mathcal{F}$ sur la droite projective s'écrit comme somme directe $\mathcal{F}_{0}\bigoplus \mathcal{F}_{1}$ où $\mathcal{F}_{0}$ est un faisceau de torsion et $\mathcal{F}_{1}$ est un faisceau localement libre.
+\item A isomorphisme près les objets indécomposables de $\mathcal{A}$ sont les $O(n), n\in\mathbb{Z}$ et les $O_{r[x]}$ $r\geqslant 1$ pour x un point fermé de $\mathbb{P}^{1}_{k}$.
+\end{enumerate} 
+\end{Prop}
+\begin{proof}\textnormal{ Soit $\mathcal{F}$ un faisceau cohérent sur $\mathbb{P}^{1}_{k}$\begin{enumerate} 
+\item Les conditions de linéarité et de finitude \textbf{HA 2} et \textbf{HA 3} sont assurées par le théorème \ref{Serrev}. La proposition \ref{suffinj} assure que $\coh$ possède suffisamment d'injectifs, le corollaire \ref{corser} assure que $\coh$ est stable par extensions et le théorème \ref{dim1} en prenant $d=1$ implique que $\coh$ est de dimension homologique au plus 1, ce qui conclut. %Enfin les modules de torsion sur un anneau principal sont de longueur finie, ils admettent donc une filtration de Jordan-Hölder ainsi $\coh_{\tor}$ vérifie \textbf{HA 5} (on verra l'équivalence de catégorie dans la section suivante).
+\item Soit $U$ un ouvert d'un schéma $X$. On définit le faisceau de torsion de $\mathcal{F}$ comme le faisceautisé de  : $$\tor\mathcal{F}(U):=\{s\in H^{0}(U,\mathcal{F})|\exists a\in H^{0}(U,\mathcal{O}_{X}), a.s=0\}$$. On a une suite exacte $$0\longrightarrow \tor\mathcal{F}\longrightarrow\mathcal{F} \longrightarrow \mathcal{F}/ \tor\mathcal{F}\longrightarrow 0$$ Etant donné que $\Hom(\mathcal{F}/ \tor\mathcal{F},\cdot)$ est exact à gauche on peut choisir une résolution injective de $\mathcal{F}/ \tor\mathcal{F}$ par des localement libres. Notons $\ext(\mathcal{F}/ \tor\mathcal{F},-)$ le foncteur dérivé droit du faisceau $\Hom(\mathcal{F}/ \tor\mathcal{F},-)$.  Puisque $\mathcal{F}/ \tor\mathcal{F}$ est localement libre et utilisant le théorème d'annulation de Serre \ref{Serrev} on déduit : $$\ext(\mathcal{F}/ \tor\mathcal{F},\tor\mathcal{F})=0$$  donc la suite exacte courte est scindée et il en résulte que $\mathcal{F}=\mathcal{F}_{0}\oplus\mathcal{F}_{1}$ avec $\mathcal{F}_{0}$ un faisceau de torsion et $\mathcal{F}_{1}$ un faisceau localement libre.
+\item La classification des faisceaux localement libres sur $\P1$ résulte du théorème \ref{groth} et celle des faisceaux de torsion de la classification des modules de torsion de longueur fini sur un anneau principal. %(voir équivalence de catégorie \ref{Cateqfl})
+ \end{enumerate}}
+\end{proof}
+\subsection{Extensions localement libres}\label{extlf}
+On a vu au \ref{HAco} que les objets indécomposables de $\coh$ sont les $O(n)$ et les $O_{r[x]}$, $r\geq 1$ ainsi $K_0(\coh)$ est engendré par ces objets. Dans cette section, on va décrire les extensions de faisceaux localement libres et montrer notamment que $ K_0(\coh)$ est engendré par $O(0)$ et $O(1)$ comme groupe abélien libre. \begin{Prop}\label{Extf}(\cite{Baum} Prop 6) Soient $n,m,p,q\in\mathbb{Z}$ , on considère la suite exacte $$0\longrightarrow O(m)\overset{f=h\oplus i}{\longrightarrow} O(p)\oplus O(q)\overset{g=j\oplus l}{\longrightarrow} O(n)\longrightarrow 0$$ avec $H,I,J,L$ des polynômes homogènes associés aux applications $h,i,j,l$. Cette suite exacte est non scindée si et seulement si \begin{enumerate}
+\item $m<min(p,q)\quad max(p,q)<n\quad p+q=m+n$\\
+\item $J$ et $L$ sont premiers entre eux.\\
+\item Il existe un élément $E$ inversible de $k$ tel que $H=EL$ et $J=-EL$.
+\end{enumerate}  \end{Prop} 
+\begin{proof}
+\begin{enumerate}
+\item On suppose la suite exacte non scindée. Supposons que $i$ soit nulle alors $h$ est injective et on aurait par exactitude de la suite une section $Q$ de $O(m)$ telle  que $QHJ=0$ c'est à dire $J$ est nul donc $j$ est l'application nulle et alors $l$ est surjective donc non nulle et donc injective, autrement dit $l$ est un isomorphisme et la suite exacte est scindée, ce qui n'est pas. Ainsi les applications $h,i,j,l$ sont toutes non nulles et pour des raisons de degrés on obtient le point 1.
+\item Soit $D=PGCD(J,L)$ de degré $d$, on a une factorisation selon le diagramme commutatif suivant  : $$\xymatrix{
+    \ar[d] O(p)\oplus O(q) \ar[r]^{g}   & O(n) &  \\
+    O(n-d)\ar[ru]^{\times D} &
+  }$$\\ Comme $g$ est surjective alors $\times D$ est surjective, elle est aussi injective car $n-d\leqslant n$ et donc c'est un isomorphisme et donc $d=0$ ainsi $J$ et $L$  sont premiers entre eux.
+  \item La condition d'exactitude force $HJ+IL=0$ d'après ce qui précède $J$ et $L$ sont premiers entre eux donc il existe un polynôme homogène $E$ non nul tel que $H=EL$ et $I=-EJ$ et le fait que $p+q=m+n$ assure que $\deg E=0$ ce qui conclut.
+ 
+La réciproque n'est pas beaucoup plus difficile, on suppose que les conditions 1,2 et 3 sont vérifiées et on montre les conditions d'exactitude localement et les arguments sont similaires au sens direct.
+\end{enumerate}
+\end{proof}
+On tire de cette proposition un corollaire important :
+\begin{cor}\label{freesplit}\textit{Soient $m,n\in\mathbb{Z}$ tels que $n\leqslant m+1$ alors $\ext(O(n),O(m))=0$}
+\end{cor} 
+On aurait pu obtenir ce corollaire de manière plus directe en utilisant la dualité de Serre pour le projectif. En effet on a par dualité de Serre : $$\ext(O(n),O(m))\simeq\Hom(O(m),O(n-2))$$ le fibré canonique étant isomorphe à $O(-2)$. Le fait que $\Hom(O(m),O(n-2))=0$ si et seulement si $n-2\leqslant m+1$ permet de conclure. Néanmoins la proposition \ref{Extf} permet d'obtenir une caractérisation intéressante pour décrire les extensions de faisceaux localement libre car elle sera utile pour calculer certains nombres de Hall (voir \ref{HAlibre}).
+\subsection{Groupe de Grothendieck et forme d'Euler sur $\coh$}\label{form}
+On va décrire plus précisément $K_0(\coh)$. L'application $$\begin{array}{ccccc}
+\nu  & : &  K_0(\coh) & \to &\mathbb{Z}^2  \\
+ & & [\mathcal{F}] & \mapsto & \langle rg(\mathcal{F}),deg(\mathcal{F})\rangle \\
+\end{array}$$ est un morphisme de groupes abélien, puisque la forme d'Euler \textit{descend} sur le groupe de Grothendieck. On définit le degré et le rang des objets indécomposables de $\coh$ : $$deg(O(n))=n\quad rg(O(n))=1\quad deg(O_{r[x]})=r\quad rg(O_{r[x]})=0$$ \begin{Prop}\label{EUL}\begin{enumerate}
+\item L'application $\nu$ est un isomorphisme de groupe.
+\item La forme d'Euler pour tout $\mathcal{F},\mathcal{G}\in\coh$ s'écrit $$\langle \mathcal{F},\mathcal{G}\rangle = \rg\mathcal{F}\rg\mathcal{G}+\rg\mathcal{F}\deg\mathcal{G}-\deg\mathcal{F}\rg\mathcal{G}$$
+\end{enumerate}
+\end{Prop}
+\begin{proof}
+\begin{enumerate}
+\item D'après \ref{Extf} pour $n\in\mathbb{Z}$ on a une suite exacte $$0\longrightarrow O(0)\longrightarrow O(1)\oplus O(n-1)\longrightarrow O(n)\longrightarrow 0$$ par récurrence on montre alors que  $$[O(n)]=n[O(1)]+(n-1)[O(0)]$$. Par ailleurs d'après la définition de $O_{r[x]}$, on a $$[O_{r[x]}]=[O(0)]-[O(-r\deg x)]=r\deg x([O(1)]-[O(0)])$$. On constate alors que $K_0(\coh)$ est engendré par $[O(1)]$ et $[O(0)]$ comme groupe abélien libre, de plus $\nu([O(1)])=(1,1)$ et $\nu([O(0)])=(1,0)$ donc $\nu$ est surjective, l'injectivité étant claire on en déduit que $\nu$ est un isomorphisme de groupes abéliens.
+\item Conséquence du théorème  \ref{Riemroch} et de \ref{CohoPn}. Par définition, \begin{align}
+  \langle [O(m)],[O(n)]\rangle & = & \dim_k \Hom(O(m),O(n))- \dim_k \ext(O(m),O(n)) \\
+   &  = & \dim_k H^0(\P1,O(n-m))- \dim_k H^1(\P1,O(n-m))\\
+   & =  & 1+ n-m\\ 
+   & = & \rg O(m)\rg O(n) + \rg O(m)\deg O(n)- \deg O(m)\rg O(n)
+\end{align}
+On a utilisé \ref{Riemroch} avec $g=0$. Cette formule s'étend à $K_0(\coh)$  car il est engendré par $O(0)$ et $O(1)$ ce qui conclut.
+\end{enumerate}
+\end{proof}
+\subsection{Faisceaux de torsion}\label{sheaftor}
+Dans cette section on va  décrire plus précisément les faisceaux de torsion sur $\coh$ et leurs extensions. On rappel qu'une partition $\lambda$ est une suite d'entier naturels $(\lambda_i)$ tels que \[(\lambda_1\geqslant ...\geqslant\lambda_l\geqslant...)\] où $l$ est le plus grand entier tel que $\lambda_i$ soit non nul: c'est la \textit{longueur} de la partition. D'après la classification des modules de torsion sur un anneau principal on a pour $\mathcal{F}$ un faisceau de torsion, $(\lambda^{i})$ une famille de partitions, $I={1,..,k}$ et $(x_i)_{i\in I}$ une famille de point fermés de $\P1$ : $$\mathcal{F}\cong \underset{i\in I}{\oplus} \mathcal{O}_{\lambda^{i}[x_i]}$$ la famille $\{x_1,..,x_k\}$ est le appelée \textit{support} de $\mathcal{F}$.\vspace{0.5cm}  %(on verra plus loin que $\P1$ a un nombre fini de point fermés)
+
+Cette même classification nous assure que pour deux faisceaux de torsions a support disjoints on a \begin{align*}\label{ext0}
+\Hom(\mathcal{F},\mathcal{G})=0\\
+\ext(\mathcal{F},\mathcal{G})=0
+\end{align*} et donc, $$\langle\mathcal{F},\mathcal{G}\rangle=0$$ ainsi $\coh_{\tor}$ est somme directe des $\coh_{\tor[x]}$ où x parcours les point fermés de $\P1$. enfin ajoutons que d'après la proposition \ref{EUL}\begin{equation}\label{dimtor}
+\dim_k \Hom(O(n),\mathcal{O}_{\lambda[x]})=\vert\lambda\vert\deg(x)
+\end{equation} avec $\vert\lambda\vert=\sum\lambda_i$.\\\vspace{0.5cm}
+
+
+Finalement l'étude des faisceaux de torsions sur $\coh_{\tor[x]}$ est équivalente à l'étude des modules de longueur finie sur un anneau de valuation discrète. Plus précisément pour $x$ un point fermé de $\P1$ définit par $P\in k[X,Y]$ un polynôme homogène irréductible, on définit l'anneau local $\mathcal{O}_{\P1,x}$ comme le localisé de $k[z]$ en l'idéal premier engendré par $P(1,z)$. On a alors la proposition suivante: 
+\begin{Prop}\label{Cateqfl} Soit $x$ un point fermé de $\P1$, soit $\pi_{x}$ une uniformisante de $\mathcal{O}_{\P1,x}$ anneau local principal (ou de valuation discrète). Soit $\mathfrak{o}-\mbox{modlf}$ la catégorie des modules de longueur finie sur un anneau de valuation discrète $\mathfrak{o}$.   Le foncteur \begin{align}
+   F :  \mathcal{O}_{\P1,x}-\mbox{modlf}&  \longrightarrow \coh_{\tor[x]}  \\
+    \mathcal{O}_{\P1,x}/(\pi_{x}^r)&\longmapsto  \mathcal{O}_{r[x]} 
+\end{align} pour $r\geq 1$, réalise une équivalence de catégorie entre les $\mathcal{O}_{\P1,x}$-modules de longueur finie et $\coh_{\tor[x]}$.
+\end{Prop}
+\pagebreak
+\section{Algèbre de Hall des modules de longueur finie sur un anneau de valuation discrète.}
+La description des faisceaux de torsions et l'équivalence de catégorie précédente nous indique que l'algèbre de Hall de $\coh_{\tor[x]}$ est isomorphe à l'algèbre de Hall des modules de longueur finie sur un anneau de valuation discrète que nous allons étudier dans cette section. On verra que cette même algèbre de Hall s'identifie à l'algèbre des fonctions symétriques, dont on rappel certains résultats important pour la suite que l'on trouvera dans\cite{Macdonald} (Chap I,II,III).
+\subsection{Anneau des fonctions symétriques}
+\begin{Def}\label{symfun} Soit $\lambda$ une partition de longueur $l$, soit $\Lambda_n:=\mathbb{Z}[x_1,..,x_n]^{\mathfrak{S}_n}=\underset{k\geqslant 0}{\oplus}\Lambda_n^k$ où les $\Lambda_n^k$ sont des algèbres de polynômes homogènes de degré $k$ dont une $\mathbb{Z}$-base est donné par les $m_\lambda (x_1,..,x_n) =\underset{\sigma\in\mathfrak{S}_{\vert\lambda\vert}}{\sum}x^{\sigma}$ avec $l\leqslant n$ et $x^\sigma=x^{\sigma(\lambda_1)}...x^{\sigma(\lambda_n)}$ et $\vert\lambda\vert=\sum_{i=1}^{l}\lambda_i=k$. On définit l'anneau des fonctions symétriques de degré $k$ noté $\Lambda_k$ comme la limite projective sur $n$ des $\Lambda_n^k$ où l'application de transition $\Lambda^k_{n+1}\to\Lambda^k_{n}$ envoie la variable $x_{n+1}$ sur $0$. L'anneau des fonctions symétriques se définit comme la $\mathbb{Z}$-algèbre gradué par les $\Lambda_k$ pour $k$ parcourant $\mathbb{N}$
+\end{Def}
+\begin{Def}\label{symelem}Soit $r\in\mathbb{N}$,on définit les fonctions symétriques \textit{élémentaires} par:  $$e_r:=\underset{i_1<..<i_r}{\sum}x_{i_1}..x_{i_r}$$\end{Def}
+\begin{Def}\label{symcomp}Soit $r\in\mathbb{N}$, on définit les fonctions symétriques \textit{complètes} par $$h_r:=\underset{\vert\lambda\vert=r}{\sum}m_{\lambda}$$\end{Def}
+\begin{Prop}\cite{Macdonald} (2.4 et 2.8 chap I)\label{symelembase} les fonctions symétriques élémentaires engendrent la $\mathbb{Z}$-algèbre $\Lambda$ et sont algébriquement indépendantes sur $\mathbb{Z}$, les fonctions symétriques complètes vérifient la même propriété.\end{Prop}
+\begin{Def}\label{HApol} Soit $\lambda=(\lambda_1,..., \lambda_n)$ une partition, avec $n$ un entier naturel. Le polynôme de Hall-Litllewood, noté $P_{\lambda}$ est définit par :$$P_{\lambda}(x_1,..,x_n,t):=1/\nu_{\lambda}\underset{w\in\sn}{\sum}w(x_1^{\lambda_1}\cdot\cdot\cdot x_n^{\lambda_n}\underset{i<j}{\prod}\frac{x_i-tx_j}{x_i-x_j})$$ avec $\nu_{\lambda}:=\underset{i}{\prod}\frac{1-t^i}{1-t}$\end{Def}
+\begin{rem} Au début ces polynômes furent définis indirectement par P. Hall dans le cadre de l'algèbre de Hall des modules de longueur finie sur un anneau de valuation discrète (que nous définissons dans la section suivante) pour calculer des nombres de Hall (voir (4.1) chap. II dans \cite{Macdonald}).
+\end{rem}
+\begin{Prop}\cite{Macdonald} (2.7 chap III) \label{symbase} Les polynômes de Hall Littlewood forment une base du $\mathbb{Z}[t]$-module $\Lambda[t]$.\end{Prop}
+\subsection{Fonctions génératrices}\label{genfun}
+On définit des fonctions génératrices dîtes élémentaires, ainsi que des relations entre elles. Ces fonctions nous seront utiles pour donner une base de l'algèbre de Hall des faisceaux de torsion sur $\P1$. On trouvera les calculs explicites des identités dans \cite{Macdonald} (I 2.5, 2.6 et II 2.10) :
+\begin{align*}
+&E(t)=\underset{r\geqslant 1}{\sum}e_rt^r=\underset{i\geqslant 1}{\prod}(1+x_it)\\
+&H(t)=\underset{r\geqslant 1}{\sum}h_rt^r=\underset{i\geqslant 1}{\prod}(1-x_it)^{-1}\\
+&H(t)E(-t)=1\\
+&q_r=(1-t)P_{(r)}(x,t)\\
+&Q(u)=\underset{r\geqslant 1}{\sum}q_ru^r=\underset{i\geqslant 1}{\prod}\frac{1-x_itu}{x_i-x_i}\\
+&Q(u)=H(u)/H(tu)
+\end{align*}
+\subsection{Algèbre de Hall des modules de longueur finie sur un anneau de valuation discrète.}
+On définit l'algèbre de Hall des modules de longueur finie sur un anneau de valuation discrète. Cette algèbre de Hall a la particularité d'être commutative et s'identifie à l'algèbre des fonctions symétriques définie précédemment. Dans la suite on va pouvoir identifier l'algèbre de Hall des faisceaux de torsions supportés en un point fermé avec l'algèbre de Hall des modules de longueur finie sur un anneau de valuation discrète.\begin{Def} Soit $\mathfrak{o}$ un anneau de valuation discrète d'idéal maximal $\mathfrak{P}$ et de corps résiduel $\kappa$. Un $\mathfrak{o}$-module est dit de \textit{longueur finie} si il possède une filtration de longueur finie. De façon équivalente on peut dire aussi qu'il existe un certain entier $r$ positif tel que $\mathfrak{P}^rM=0$. Un tel module M est caractérisée par une partition $\lambda=(\lambda_1,..,\lambda_r)$ telle que : $$M=\underset{i=1}{\overset{r}{\oplus}}\mathfrak{o}/\mathfrak{P}^{\lambda_i}$$ pour un certain r positif. On dit que $M$ est de \textit{type} $\lambda$. La longueur du module $M$ est donnée par $l(M)=\vert\lambda\vert$. \end{Def}
+La proposition suivante nous sera utile pour calculer certains nombres de Hall, notamment lorsque l'on devra faire le produit entre des classes de faisceaux de torsions par des faisceaux localement libres. 
+\begin{Prop}\cite{Macdonald} (1.6 chap. II)\label{Autmodlf} Soit $M$ de type $\lambda$. Supposons que $\mathfrak{o}/\mathfrak{P}=\Fq$, on a $$\vert\aut(M)\vert=a_{\lambda}(q)=q^{\vert\lambda\vert+2n(\lambda)}\underset{i\geq 1}{\prod}\varphi_{m_i}(\lambda)(q^{-1})$$ où $\varphi_m(t):=(1-t)(1-t^2)...(1-t^m)$ et $n(\lambda)=\underset{i=1}{\overset{l}\sum}(i-1)\lambda_i$ \end{Prop}
+Soient $\lambda,\mu^{(1)},\mu^{(2)},...,\mu^{(r)}$ des partitions, $M$ un $\mathfrak{o}$-module de longueur finie de type $\lambda$. On définit les nombres de Hall $\phi^{\lambda}_{\mu^{(1)}\mu^{(2)}...\mu^{(r)}}$ comme étant le nombre de filtrations $$M=M_0\supset...\supset M_r=0$$ telles que $M_i/M_{i+1}$ a type $\mu^{(i)}$ pour $1\leqslant i\leqslant r$. On définit également le \textit{cotype} $\nu$ d'un sous module, de type $\mu$, $N$ de $M$  comme le type de $M/N$. Il est clair que: $$l(M)=l(M/N)+l(N)$$ ainsi on a $$\phi^{\lambda}_{\mu\nu}\neq 0$$ dès que l'égalité précédente est vérifiée.
+\begin{Def}\label{Defomdlf} L'algèbre de Hall des modules de longueur finie sur un anneau de valuation discrète notée $H(\mathfrak{o})$ est un $Z$-module libre engendré par les classes des $\mathfrak{o}$-modules $M_\lambda$ indexés par des partitions $\lambda$ tels que :$$[M_\mu]\cdot[M_\nu]=\underset{\lambda}{\sum}\phi^{\lambda}_{\mu\nu}[M_\lambda]$$\end{Def}
+Cette algèbre est associative avec unité $[0]$ et la commutativité est assurée par dualité des $o$-modules de longueur finie (\cite{Macdonald} 1.5 II) , c'est à dire que l'on a pour tout module de type $\lambda$, tout sous module de type $\mu$ et cotype $\nu$ : $$\phi^{\lambda}_{\mu\nu}=\phi^{\lambda}_{\nu\mu}$$\vspace{0.5cm}
+
+Le théorème suivant est essentiel puisqu'il va nous permettre de donner explicitement un isomorphisme entre l'algèbre de Hall des faisceaux de torsion supportés en un point fermé de $\P1$ et l'algèbre des fonctions symétriques : 
+\begin{theo}\cite{Macdonald} (3.4 chap. III)\label{HAmodlf} $H(\mathfrak{o})$ est une $Z$-algèbre commutative, associative avec unité $[0]$ engendrée par les modules de types $(1^r)$ notés $M_{1^r},r\geq 1$. De plus il existe un isomorphisme: $$\mu : H(\mathfrak{o})\overset{\simeq}{\longrightarrow}\Lambda\otimes Z$$ tel que $\mu (M_{1^r})=q^{-r(r-1)/2}e_r$ et $\mu (M_{\lambda})=q^{-n(\lambda)}P_{\lambda}(x;q^{-1})$ pour $r\geq 1$.\end{theo} 
+\section{Algèbre de Hall des faisceaux cohérents sur $\P1$}
+Dans cette section on va étudier la structure de la Z-algèbre engendrée par les faisceaux de torsions et les faisceaux localement libres. On a vu que la catégorie des faisceaux de torsions était somme directe des catégories des faisceaux de torsions supportés en des points fermés de $\P1$. On étendra ce résultat à l'algèbre de Hall des faisceaux de torsions en montrant que celle-ci est isomorphe à un produit tensoriel des algèbres de hall des faisceaux de torsions supportés en des points fermés de $\P1$ dont on connaît bien la structure puisqu'elles s'identifient à l'algèbre des fonctions symétriques. On sera alors en mesure de donner une base de l'algèbre de Hall des faisceaux de torsions en utilisant des fonctions génératrices permettant d'exhiber des générateurs d'une base de $H(\tor)$.\vspace{0.5cm} 
+
+Ensuite on verra comme conséquence d'un théorème d'annulation de Serre que l'on peut écrire l'algèbre de Hall des faisceaux cohérents sur $\P1$ comme produit de l'algèbre de Hall des faisceaux de torsions par l'algèbre de Hall des localement libres. Il nous restera alors à donner une base de cette dernière. Pour cela on montrera quelques calculs de nombre de Hall et on sera alors en mesure de donner une $Z$-base de $H(\coh)$ dont les éléments seront des produits de faisceaux localement libres par des faisceaux de torsions.\vspace{0.5cm}
+%Les faisceaux cohérents sur la droite projective s'écrivent tous comme somme directe de localement libres et de faisceau de torsion. De plus, la dualité de Serre nous assure que $$\ext(\mathcal{F},\mathcal{G})=\Hom(\mathcal{G},\mathcal{F}(-2))=0$$ si $\mathcal{G}$ est de torsion sur $\P1$ et si $\mathcal{F}(-2)$ est localement libre sur $\P1$. Ainsi l'algèbre de Hall de $\coh$ s'écrit comme produit tensoriel de l'algèbre de Hall des faisceaux localement libres avec celle des faisceaux de torsion. Nous avons vu que la catégorie des faisceaux de torsions est somme directe des faisceaux de torsions supportés en des point fermés de $\P1$ (seul le morphisme nul existe entre deux faisceaux à support disjoints). Autrement dit étudier l'algèbre de Hall des faisceaux cohérent sur $\P1$ revient à étudier l'algèbre de Hall des faisceaux localement libres et  des faisceaux de torsion supportés en des points fermés de $\P1$.\\\\ Dans un premier temps on présente l'algèbre des faisceaux de torsion supportés en un point fermé de $\P1$. Celle-ci est isomorphe à l'algèbre des fonctions symétriques par le théorème \ref{HAmodlf}. A l'aide de fonctions génératrices on exhibe alors une $Z$-base de l'algèbre de Hall des faisceaux de torsions sur $\P1$. Ensuite nous étudions une sous algèbre de $H(\coh)$ engendrée par les faisceaux localement libres, plus précisément nous en donnerons une base. Le produit de cette base avec une base de l'image de l'algèbre des fonctions symétriques dans l'algèbre de Hall des faisceaux de torsions nous fournira alors une base d'une sous algèbre de $H(\coh)$ que l'on identifiera à une sous algèbre "positive" de $U_q(\widehat{sl}_2)$.\\\\
+
+Dans toute la suite $k$ est le corps $\Fq$ fini à q éléments, on note $\tor$ la catégorie des faisceaux de torsion sur $\P1$ et $\tor_x$ la sous catégorie formée des faisceaux de torsions supportés en un point fermé $x$ de $\P1$ et on définit $q_x=q^{degx}$. On définit également les $q$-nombres par : $$[n]=\frac{v^n-v^{-n}}{v-v^{-1}}$$
+\subsection{Algèbre de Hall des faisceau de torsion sur $\P1$}
+
+
+On a vu avec l'équivalence de catégories \ref{Cateqfl} que $\tor_x$ est équivalente à la catégorie des modules de longueur finie sur l'anneau de valuation discrète $\mathcal{O}_{\P1,x}$. Les classes $([O_{1^r[x]}])$ correspondent aux fonctions symétriques élémentaires et les $[O_{r[x]}]$ aux fonctions de Hall-Littlewood par l'isomorphisme du théorème \ref{HAmodlf}. Ainsi le théorème \ref{HAmodlf}, appliqué à l'anneau  $\mathcal{O}_{\P1,x}$,  et la proposition \ref{symelembase} nous permet d'obtenir la proposition suivante exprimant que l'algèbre de Hall des faisceaux de torsions supportés en point fermé de $\P1$ s'identifie à l'algèbre des fonction symétriques:
+%Dans toute la suite $k$ est le corps $\Fq$ fini à q éléments. Posons $\mathsf{h}_{r,x}=\underset{\vert\lambda\vert=r}{\sum}[O_{r[x]}]$. D'après \ref{ext0} on déduit que $H(\coh_{\tor})$ est isomorphe au produit tensoriel des $H(\coh_{\tor[x]})$ lorsque $x$ parcourt les points fermés de  $\P1$ \cite{Kapranov}. De plus \ref{HAmodlf} et \ref{Cateqfl} nous assure que $H(\coh_{\tor[x]})$ s'identifie à la $Z$-algèbre des fonctions symétriques. Sa structure est alors donnée par : 
+\begin{Prop}Soient $x$ un point fermé de $\P1$ et  $\mathsf{h}_{r,x}:=\underset{\vert\lambda\vert=r}{\sum}[O_{\lambda[x]}]$, la somme portant sur les partitions de poids $r$, $r\geqslant 1$.\\
+$H(\tor_x)$ est une $Z$-algèbre polynomiale en les $(\mathsf{h}_{r,x})_{r\geqslant 1}$, ainsi qu'en les $([O_{1^r[x]}])$. De plus, La famille $(O_{r[x]})$, pour $r\geqslant 1$, consiste en des éléments algébriquement indépendants et engendre $H(\tor_x)\otimes_Z \mathbb{Q}$ comme $\mathbb{Q}[v,v^{-1}]/(v^2-q)$-algèbre.
+\end{Prop}
+
+On va maintenant se pencher sur la structure de $H(\tor)$ qui comme on va le voir se ramène à l'étude de la structure de $H(\tor_x)$ . D'après \ref{sheaftor} : $$\tor=\underset{x\in\P1}{\prod}\tor_x$$, de plus on rappel que pour des faisceaux de torsion $\mathcal{F}$ et $\mathcal{G}$  à support disjoint : $$\Hom(\mathcal{F},\mathcal{G})=\ext(\mathcal{F},\mathcal{G})=0$$ d'où : $$[\mathcal{F}]\cdot[\mathcal{G}]=[\mathcal{F}\oplus\mathcal{G}]$$ La décomposition en somme directe de tout faisceau de torsion en faisceau de torsion supporté en des point fermés de $\P1$ et l'identité précédente nous assure alors que $$H(\tor)=\underset{x\in\P1}{\bigotimes}H(\tor_x)$$ Notons également que d'après l'annulation des groupes d'extension et d'homomorphisme entre deux faisceaux de torsion a support disjoint assure que la forme d'Euler de ces deux faisceaux est nulle. Il en résulte que le produit de Ringel noté $\ast$ et le produit $\cdot$ coïncident sur $H(\tor)$.\vspace{0.5cm}
+
+Considérons les fonctions génératrices suivantes dans $H(\tor_x)[[s]]$ construites à partir des fonctions génératrices de l'algèbre des fonctions symétriques et de l'isomorphisme \ref{HAmodlf}  :
+\begin{align*}
+&H_{x}(s)  =  1+\underset{r\geqslant 1}{\sum}\mathsf{h}_{r,x}s^{r\deg x}=\underset{\beta\in Iso(\tor_x)}{\sum}\beta s^{\beta}\\ 
+&E_{x}(s)  =  1+\underset{r\geqslant 1}{\sum}(-1)^rq_x^{r(r-1))/2}[\mathcal{O}_{(1^r)[x]}]s^{r\deg x}\\
+&Q_{x}(s)  =  1+\underset{r\geqslant 1}{\sum}(1-q_x^{-1})v^{r\deg x}[\mathcal{O}_{r[x]}]s^{r\deg x}
+\end{align*} D'après le comptage du nombre d'automorphismes d'un module de type $\lambda$ donné en \ref{Autmodlf}, on a $$\vert \aut(\mathcal{O}_{r[x]})\vert = q_x^r(1-q_x^{-1})$$, donc d'après les identités entre fonctions génératrices \ref{genfun} on a  les relations suivantes : 
+\begin{align*}\label{HxEx}
+&H_x(s)E_x(s)=1\qquad Q_x(s)=H_x(sv)/H_x(s/v)\\
+&Q_x(s)=\underset{r\geqslant 0}{\sum}\vert \aut(\mathcal{O}_{r[x]})\vert v^{-rdegx}[\mathcal{O}_{r[x]}]s^{rdegx}
+\end{align*} 
+ 
+On définit $\mathsf{h}_r,\mathsf{e}_r,\mathsf{q}_r$ dans $H(\tor)[[s]]$ via les fonctions génératrices : \begin{align}
+& \widehat{H}(s)=1+\underset{r\geqslant 1}{\sum}\mathsf{h}_{r}s^{r}=\underset{x\in\P1}{\prod}H_{x}(s)\\
+& \widehat{E}(s)=1+\underset{r\geqslant 1}{\sum}\mathsf{e}_rs^r=\underset{x\in\P1}{\prod}E_{x}(s)\\
+& \widehat{Q}(s)=1+\underset{r\geqslant 1}{\sum}\mathsf{q}_rs^r=\underset{x\in\P1}{\prod}Q_{x}(s)
+\end{align} où x parcourt les point fermés de $\P1$. D'après \ref{genfun},  elles vérifient les relations  $$\widehat{H}(s)\widehat{E}(s)=1$$ et $$\widehat{Q}(s)=\frac{\widehat{H}(sv)}{\widehat{H}(s/v)}$$ ou encore en identifiant les coefficient de même degré dans les séries formelles, pour $r\geq 1$ :\begin{align}\label{algdep}
+&\mathsf{h}_{r}+\underset{s=1}{\overset{r-1}{\sum}}\mathsf{h}_{r}\mathsf{e}_{r-s}+\mathsf{e}_r=0\\
+&(q^r-1)\mathsf{h}_{r}=v^r\mathsf{q}_{r}+\underset{s=1}{\overset{r-1}{\sum}}v^{r-s}\mathsf{h}_{s}\mathsf{q}_{r-s}
+\end{align} 
+
+On en déduit que les familles $(\mathsf{h}_{r})_{r\geqslant 1}$,$(\mathsf{e}_{r})_{r\geqslant 1}$,$(\mathsf{q}_{r})_{r\geqslant 1}$ sont des familles d'indéterminés de l'algèbre $H(\tor)$ algébriquement indépendantes (voir Lemme 18 (ii) dans \cite{Baum}).
+\subsection{Structure de $\hacl$}
+On décrit la structure d'une sous algèbre de $\hacl$ engendrée par les $O(n)$. On explicite dans le lemme qui suit des calculs de certains nombre de Hall utiles pour la suite et ensuite on donnera une base de l'algèbre de Hall des faisceaux localement libres.  
+
+%Le fait suivant  conséquence directe de la dualité de Serre est intéressant puisqu'il nous permet de voir une sous algèbre de $H(\coh)$ engendrée par les faisceaux de torsions et les localement libres comme produit de $H(\coh_l)$ par $H(\tor)$:
+%\begin{Prop}\label{HAdec}
+%Si $\mathcal{F}$ est localement libre et $\mathcal{G}$ est de torsion alors $$[\mathcal{F}].[\mathcal{G}]=[\mathcal{F}\oplus\mathcal{G}]$$ avec $\Hom(\mathcal{G},\mathcal{F})=0$ et $\ext(\mathcal{F},\mathcal{G})=0$ \end{Prop} Grâce à cette proposition on en déduit $\hac\simeq\hacl\underset{Z}{\otimes}\hact$
+
+
+\begin{lemma}\label{HAlibre}\begin{enumerate}
+\item Soit $n\in\mathbb{Z}$ alors $$[O(n)^{\oplus a}][O(n)^{\oplus b}]=\left(\underset{c=0}{\overset{a-1}{\prod}}\frac{q^{a+b+c}-1}{q^{a-c}-1}\right)[O(n)^{a\oplus b}]$$
+\item Soient $n$ et $m$ deux entiers relatifs tels que $m<n$ alors : $$[O(m)]\cdot[O(n)]=q^{n-m+1}[O(m)\oplus O(n)]+\underset{a=1}{\overset{[(n-m)/2]}{\sum}}(q^2-1)q^{n-m+1}[O(m+a)\oplus O(n-a)] $$
+\item Si $n_1<...<n_r$ sont des entiers et $c_1,...,c_n$ une suite d'entiers positifs alors $$[O(n_1)]^{\ast c_1}\ast...\ast[O(n_r)]^{\ast c_r}=\left(\underset{i=1}{\overset{r}{\prod}}q^{c_i(c_i-1)/2)}[c_i]!\right)v^{\sum_{1\leq i<j\leq r}(n_j-n_i+1)c_j}[\underset{i=1}{\overset{r}{\bigoplus}} O(n_i)^{\oplus c_i}]$$ 
+\item Soit $v$ une racine de $q$ , $$[O(m+1)]\ast[O(n)]-v^2[O(n)][O(m+1)]=v^2[O(m)]\ast[O(n+1)]-[O(n+1)]\ast[O(m)]$$
+\end{enumerate}\end{lemma}
+\begin{proof}\begin{enumerate} 
+\item  En effet d'après \ref{freesplit} si on a une suite exacte $$0\longrightarrow O(n)^{\oplus b}\longrightarrow \mathcal{F}\longrightarrow O(n)^{\oplus a}\longrightarrow 0$$ elle est scindée d'où $\mathcal{F}\cong O(n)^{a\oplus b}$ et si on applique le foncteur $\Hom(\cdot,O(n))$ contravariant et exact (car les faisceaux sont localement libres et de rang fini), on obtient la suite exacte suivante : $$0\longrightarrow \Fq^{\oplus a}\longrightarrow \Fq^{a\oplus b}\longrightarrow \Fq^{\oplus b}\longrightarrow 0$$ Ainsi le nombre de Hall est donné par le nombre de sous $\Fq$-espaces vectoriels de dimension $a$ dans un $\Fq$ espace vectoriel de dimension $a+b$ c'est à dire $\left(\underset{c=0}{\overset{a-1}{\prod}}\frac{q^{a+b+c}-1}{q^{a-c}-1}\right)$. 
+\item Dans le cas où la suite exacte : $$0\longrightarrow O(m)\overset{f}{\longrightarrow} \mathcal{F}\overset{g}{\longrightarrow} O(n)\longrightarrow 0$$ est scindée on a $$\mathcal{F}\simeq O(m)\oplus O(n)$$ On écrit $f=i\oplus h$ et $g=j\oplus l$. Si la suite scinde on peut trouver un inverse à $f$ ou à $g$ ceci implique que $i\in\aut(O(m))$ ou $l\in\aut(O(n))$. Fixons $i$ et supposons $l\in\aut(O(n))$. La condition d'exactitude implique que $j=-h\circ i\circ l^{-1}$. On en déduit que le nombre de couples $(f,g)$ tels que la suite précédente soit exacte est donnée par  : $$\vert\aut(O((m))\vert\times\vert\aut(O(n))\vert\times\vert\Hom(O(m),O(n))\vert$$ Ainsi le nombre de Hall $\phi^{[O(m)\oplus O(n)]}_{[O(n)][O(m)]}$ est donné par $\vert\Hom(O(m),O(n))\vert=q^{n-m+1}$. Dans le cas ou la suite exacte n'est pas scindée, d'après la proposition \ref{freesplit}, les nombres de Hall sont donnés par $\varphi(a,n-m-a)/\vert\aut(O(n))\vert$ où $\varphi(a,n-m-a)$ est le nombre de paires de polynômes homogènes $(J,L)$  dans $k[X,Y]$ où $J$ est de degré $a$ et $L$ de degré $n-m-a$ ce qui donne bien $(q^2-1)q^{n-m+1}$ (combinatoire, Lemme 16 \cite{Baum}).
+\item On a  pour $$\mathcal{F}\simeq O(n_{1})\oplus ...\oplus O(n_{r})$$ et $m\in\mathbb{Z}$ strictement plus grand que $n_1,...,n_r$ : $$[\mathcal{F}][O(m)]=[\mathcal{F}\oplus O(m)]$$ puisque d'après le corollaire \ref{freesplit} $\ext(\mathcal{F},O(m))=0$ et le nombre de suite exactes (scindées) : $$0\longrightarrow O(m)\overset{f}{\longrightarrow} \mathcal{G}\overset{g}{\longrightarrow} O(n)\longrightarrow 0$$ est donné par $$\vert\aut(O(m))\vert\vert\aut(\mathcal{F})\vert\vert\Hom(O(m),\mathcal{F})\vert$$ par le même raisonnement que le point précédent. De plus, pour $m$ strictement plus grand que $n_1,...,n_r$ on a  $\Hom(O(m),\mathcal{F})=0$ donc le nombre de Hall est bien 1. Enfin d'après \ref{EUL} et par bilinéarité de la forme d'Euler Poincaré, $$\langle O(n_i)^{\oplus c_i}, O(n_j)^{\oplus c_j}\rangle = c_ic_j(1+n_j-n_i)$$ Une récurrence immédiate sur $r$ permet alors de retrouver le résultat annoncé.\end{enumerate}
+\end{proof}
+Soit $C$ l'ensemble des suites croissantes d'entiers positifs avec un nombre fini de termes non nuls, pour $c=(c_n)_{n\in\mathbb{N}}\in C$ on pose : $$X_c=\underset{n\in\mathbb{Z}}{\prod}[O(n)]^{\ast c_n}$$ le point 3 du lemme précédent implique alors directement la proposition suivante donnant une base de : 
+\begin{Prop}\label{HAlibre} Si $R$ est une $Z$-algèbre contenant $\mathbb{Q}$ alors la famille $(X_c)_{c\in C}$ est une base du $R$-module $H(\coh_{l})\underset{Z}{\otimes}R$ \end{Prop}
+\subsection{Une sous algèbre de $H(\coh)$}\label{fungen}
+Dans cette section on donne  une base de l'algèbre engendrée par les faisceaux localement libres et les faisceaux de torsions. 
+\begin{Prop}\label{HAdec}
+Si $\mathcal{F}$ est localement libre et $\mathcal{G}$ est de torsion alors $$[\mathcal{F}].[\mathcal{G}]=[\mathcal{F}\oplus\mathcal{G}]$$ avec $\Hom(\mathcal{G},\mathcal{F})=0$ et $\ext(\mathcal{F},\mathcal{G})=0$ \end{Prop} En effet, dans ce cas il est clair que $\Hom(\mathcal{G},\mathcal{F})=0$ et le théorème d'annulation de Serre assure que $\ext(\mathcal{F},\mathcal{G})=0$. Grâce à cette proposition on en déduit $$\hac\simeq\hacl\underset{Z}{\otimes}\hact$$
+Le lemme suivant fourni certaines relations de commutations entre des générateurs de $H(\coh_{l})$ et $H(\tor)$:
+\begin{lemma}\label{HAcom} Pour $n\in\mathbb{Z}$ et $r\geqslant 1$ on a $$\mathsf{h}_r\ast[O(n)]=\underset{s=0}{\overset{r}{\sum}}[s+1][O(n+s)]\ast\mathsf{h}_{r-s}$$ \end{lemma}
+On a besoin du résultat intermédiaire suivant pour démontrer le lemme précédent :\begin{Prop}\label{mixtext} Soit $x$ in point fermé de $\P1$, $r\geqslant 1$ , $m\in\mathbb{Z}$,\begin{enumerate}
+\item Soit  $\mathcal{F}_{0}$ faisceau cohérent de torsion et $\mathcal{F}_{1}$ faisceau cohérent localement libre. Si on a la suite exacte non scindée suivante  : $$0\longrightarrow O(m)\overset{f=h\oplus i}{\longrightarrow} \mathcal{F}_{0}\oplus \mathcal{F}_{1}\overset{g=j\oplus l}{\longrightarrow}\mathcal{O}_{1^r[x]}\longrightarrow 0$$ Alors $\mathcal{F}_{0}\oplus \mathcal{F}_{1}$ est isomorphe à $\mathcal{O}_{1^{r-1}[x]}\oplus O(m+\deg x)$ de plus $h=0$ et $coker i\simeq \mathcal{O}_{[x]}$ 
+\item $$[\mathcal{O}_{(1^r)[x]}][O(m)]=[O(m+\deg x)\oplus \mathcal{O}_{(1^{r-1})[x]}]+q^r_{x}[O(m)\oplus \mathcal{O}_{(1^r)[x]}]$$
+\end{enumerate}
+\end{Prop}
+\begin{proof}\begin{enumerate}
+\item En effet, $i$ est injective comme morphisme non nul de faisceaux localement libres, comme de plus $f$ est injective et que $h$ est à valeur dans un faisceau de torsion, $h$ ne peut être injective elle est donc nécessairement nulle. On en déduit que $j$ est injective, son noyau étant un sous objet de l'image de $i$ par exactitude de la suite. Ainsi $\mathcal{F}_{0}$ s'injecte dans $\mathcal{O}_{(1^r)[x]}$ il est donc isomorphe à $\mathcal{O}_{(1^s)[x]}$ pour $s<r$ (le fait que la suite exacte est non scindée permet d'évacuer le cas $r=s$). La surjectivité de $g$ force $s=r-1$ et pour des raisons de degrés on a $\mathcal{F}_{1}\simeq O(m+\deg x)$ ce qui conclut.
+\item Le premier est une conséquence du 1 de la proposition \ref{HAcom} dans le cas où la suite est non scindée et le second du cas où la suite est scindée et par un raisonnement similaire à 2. lemme \ref{HAdec} le nombre de Hall est donné par $\vert \Hom(O(m),\mathcal{O}_{(1^r)[x]})\vert=q_x^r$
+\end{enumerate}
+\end{proof}
+Nous sommes maintenant en mesure de démontrer le lemme \ref{HAcom}:
+\begin{proof}
+On pose $X(t)=\underset{n\in\mathbb{Z}}{\sum}[O(n)]t^n$ La proposition précédente permet de voir que $$E_x(s)\ast X(t)=X(t)\ast E_x(s)(1-(s/tv)^{\deg x})$$ d'où en utilisant les relations entre fonctions génératrices : $$H(s)\ast X(t)=X(t)\ast H(s)\underset{x\in\P1}{\prod}\frac{1}{1-(s/tv)^{\deg x}} $$. D'après les résultats énoncés sur la fonction Zêta \ref{zeta} appliqué à $\P1$ on obtient alors  $$H(s)\ast X(t)=X(t)\ast H(s)\frac{1}{(1-s/tv)(1-sv/t)} $$ et un petit calcul permet de voir que cette identité est équivalente à celle annoncée dans le lemme.
+\end{proof}
+Soit $B_0$ sous algèbre de $H(\tor)$ engendrée par la famille $(\mathsf{h}_{r})_{r\geqslant 1}$ et soit $B$ une sous algèbre de $H(\coh)$ engendrée par $B_0$ et $B_1$. On pose : $$\mathsf{h}_d=\underset{r\geqslant 1}{\prod}\mathsf{h}^{d_r}_r\qquad \mathsf{e}_d=\underset{r\geqslant 1}{\prod}\mathsf{e}^{d_r}_r\qquad \mathsf{q}_d=\underset{r\geqslant 1}{\prod}\mathsf{q}^{q_r}_r$$
+Et on obtient, comme conséquence de la proposition \ref{HAlibre} et du lemme précédent \ref{HAcom}, une base d'une sous algèbre de $H(\coh)$ engendrée par $B_0$ et $H(\coh_l)$ notée $B$ :
+\begin{Prop}\label{HAstruc} Soit $R$ un corps de caractéristique nulle qui est aussi une $Z$-algèbre. Les familles $(X_c\ast\mathsf{h}_d)_{(c,d)\in C\times D}$, $(X_c\ast\mathsf{e}_d)_{(c,d)\in C\times D}$ et $(X_c\ast\mathsf{q}_d)_{(c,d)\in C\times D}$ forment des bases du $R$-module $B_{(R)}=B\underset{Z}{\otimes} R$, $C$ et $D$ étant des familles d'entiers relatifs presque tous nuls. \end{Prop} C'est cette algèbre que l'on va relier à une sous algèbre positive de $U_q(\widehat{sl}_2)$
+\pagebreak
+\section{Algèbres de Kac-Moody}
+Dans cette section, on expose quelques résultats qui nous seront utile pour comprendre la structure de $\widehat{sl}_2$ on trouvera dans \cite{Kac} la plupart des résultats énoncés. On commence par définir les algèbres de Kac-Moody à partir d'une matrice de Cartan généralisée, ces algèbres de Lie sont un cas particulier d'algèbres de Lie de dimension infinie, elles apparaissent par exemple en théorie quantique des champs lorsque l'on s'intéresse aux anomalies quantiques, et à certaines algèbres de courant des particules élémentaires et en théorie des systèmes intégrables en physique théorique sous leurs forme quantifiées. On s'intéresse particulièrement aux algèbres affines qui sont des extensions centrales d'algèbres de Lie semi-simples complexes. Ces algèbres de Lie ont la particularité de posséder des racines "imaginaires" en plus des racines classiques dîtes "réelles". A la différence des algèbres de Lie semi-simples complexes, le groupe de Weyl n'agit plus simplement ni transitivement sur les familles de racines simples et laisse fixe les racines imaginaires, les espaces de poids de la représentation adjointe associés aux racines imaginaires peuvent avoir des multiplicité supérieures à 1. On va définir le groupe de Weyl affine comme un produit semi direct du groupe de Weyl classique par un groupe de translation agissant sur le système de racine de l'algèbre de Lie affine. Les opérateurs de translations vont nous permettre d'exhiber une sous algèbre de Borel "non standard" car elle possède une infinité de générateurs. Cette sous algèbre de Borel est importante car elle est intiment liée à une nouvelle présentation de Drienfeld de l'algèbre quantique enveloppante de  $\widehat{sl}_2$ que l'on donnera dans la section suivante. On ne rappel pas la théorie des algèbres de Lie semi-simples complexes dont on pourra trouver une exposition dans \cite{Ser}
+\subsection{Définitions de base}
+Soit $\Pi:=\{\alpha_1,..,\alpha_n\}\subset\mathfrak{h^{\ast}}$ et $\Pi^{\vee}:=\{\alpha_1^{\vee},..,\alpha_n^{\vee}\}\subset\mathfrak{h}$, où $\mathfrak{h}$ est un $\mathbb{C}$-espace vectoriel de dimension finie, soit $A$ une matrice de taille $n\times n$ à coefficient dans $\mathbb{C}$ et $\langle\quad,\quad \rangle$ une forme bilinéaire sur $\mathfrak{h}\times\mathfrak{h}^{\ast}$ à valeur dans $\mathbb{C}$. 
+\begin{Def} On dit que $(A,\Pi,\Pi^{\vee},\mathfrak{h})$ est une réalisation de $A$ si : \begin{itemize}
+\item $\Pi$ et $\Pi^{\vee}$ sont linéairement indépendant
+\item $\langle\alpha_i,\alpv_j\rangle =a_{ij}$
+\item $\dim_{\mathbb{C}}\mathfrak{h}=2n-\rg A$
+\end{itemize} \end{Def} La matrice $A$ est unique à isomorphisme près (prop 1.1 \cite{Kac})\vspace{0.5cm}
+
+ A une réalisation de $A$ on peut associer une algèbre de Lie $\tilde{\mathfrak{g}}(A)$ engendrée par des générateurs $(e_i)_{i\geqslant 1},(f_i)_{i\geqslant 1}$ et $\mathfrak{h}$ satisfaisant aux relations suivantes :
+\begin{align}
+& [e_i,f_j]=\delta_{ij}\alpha_j^{\vee}\quad (i,j=1...n)
+&[h,h']=0\quad\forall h,h'\in\mathfrak{h}\\
+& [h,e_i]=\langle\alpha_i,h\rangle e_i\quad\forall h\in\mathfrak{h}\quad (i=1...n)\\ 
+&[h,f_i]=-\langle\alpha_i, h\rangle f_i\quad\forall h\in\mathfrak{h}\quad (i=1...n)
+\end{align}
+On définit le réseau des racines par $$Q:=\underset{i=1}{\overset{n}{\sum}}\mathbb{Z}\alpha_i$$ et le réseau des racines positives par : $$Q_+:=\underset{i=1}{\overset{n}{\sum}}\mathbb{Z}_+\alpha_i$$
+Soit $\tilde{n}$ respectivement $\tilde{n}_-$ des sous algèbres de $\tilde{\mathfrak{g}}(A)$ engendrées par les $e_i$ respectivement les $f_i$ pour $i=1,...n$.
+\begin{theo}\cite{Kac}(th 1.2)On a la décomposition en espaces de racines suivante :\begin{enumerate}
+\item $\tilde{\mathfrak{g}}(A)=\underset{\alpha\in Q_+}{\bigoplus}\tilde{\mathfrak{g}}(A)_{\alpha}\oplus\mathfrak{h}\underset{-\alpha\in Q_+}{\bigoplus}\tilde{\mathfrak{g}}(A)_{\alpha}$, avec $$\tilde{\mathfrak{g}}(A)_{\alpha}:=\{x\in\tilde{\mathfrak{g}}(A)\vert \ad_hx=\alpha(h)x\quad\forall h\in\mathfrak{h}\}$$ de plus $\dim_{\mathbb{C}}\tilde{\mathfrak{g}}(A)_{\alpha}<\infty$ %et $\tilde{\mathfrak{g}}(A)_{\alpha}\subset \tilde{n}_{+-}\quad\forall +-\alpha\in Q_+$
+\item $\tilde{\mathfrak{g}}(A)=\tilde{n}_+\oplus \mathfrak{h}\oplus \tilde{n}_-$ 
+\item Il existe un unique idéal maximal $\tau$ de $\tilde{\mathfrak{g}}(A)$ intersectant trivialement $\mathfrak{h}$
+\end{enumerate}
+\end{theo}
+\begin{Def} On dit que $A$ est une matrice de Cartan généralisée si ses coefficients satisfont aux relations suivantes:
+\begin{itemize}
+\item $(a_{ij})\in\mathbb{Z}\quad\forall i,j$
+\item $a_{ii}=2\quad\forall i$
+\item $a_{ij}=0\Rightarrow a_{ji}=0\quad\forall i,j$
+\end{itemize}
+\end{Def}
+\begin{Def} On pose $\mathfrak{g}(A)=\tilde{\mathfrak{g}}(A)/\tau$ on dit que  $A$ est la matrice de Cartan de l'algèbre de Lie  $\mathfrak{g}(A)$, lorsque $A$ est une matrice de Cartan généralisée, on dit que $\mathfrak{g}(A)$ est une algèbre de Kac Moody.
+\end{Def}
+\begin{Def} Un élément $\alpha\in Q,(\alpha\neq 0)$ est une racine si ${\mathfrak{g}}(A)_{\alpha}\neq 0$	on note $\Delta$ l'ensemble des racines, une racine est soit positive soit négative et toute racine est combinaison linéaire de racines simples avec des coefficients soient tous positifs soient tous négatifs. Soit $\Delta_+$ (resp $\Delta_-$) l'ensemble des racines positives (resp négatives) on a $\Delta=\Delta_+\sqcup\Delta_-$ (union disjointe).
+\end{Def}
+\begin{Def} Le centre de $\mathfrak{g}(A)$ noté $z_{\mathfrak{g}}$ est définit par : $$z_{\mathfrak{g}}:=\{h\in\mathfrak{h}\vert \langle \alpha_i,h\rangle = 0\quad\forall \alpha_i\in\Pi\}$$ il est de dimension $n-\rg A$ (1.6 \cite{Kac})\end{Def}
+\subsection{Forme bilinéaire invariante et groupe de Weyl}
+%On rappel que lorsque lorsque $\mathfrak{g}(A)$ est une algèbre de Lie symétrisable, il existe une forme bilinéaire symétrique non dégénérée à valeur dans $\mathbb{C}$. 
+On dit que $\mathfrak{g}(A)$ est symétrisable si $A$ est symétrisable, c'est à dire s'il existe une matrice  $D=diag(\epsilon_1,...,\epsilon_n)$ diagonale et une matrice $B=(b_{ij})_{i,j=1,..,n}$ symétrique telles que $A=DB$. On définit alors une forme bilinéaire symétrique sur $\mathfrak{h}$ à valeur dans $\mathbb{C}$ telle que : 
+\begin{align}
+&(\alpha_i^{\vee}\vert h)=\langle \alpha_i,h\rangle\epsilon_i\quad\forall h\in\mathfrak{h}\\
+&(h\vert h')=0\quad\forall h,h'\in\mathfrak{h}\setminus\Pi^{\vee}\\,
+&(\alpha_i^{\vee}\vert\alpha_j^{\vee})=b_{ij}\epsilon_{i}\epsilon_{j}
+\end{align}
+Cette forme bilinéaire est non dégénérée sur $\mathfrak{h}$ (lemme 2.1 \cite{Kac}) donc elle induit un isomorphisme $\nu$ entre $\mathfrak{h}$ et $\mathfrak{h}^{\ast}$ et on a le théorème important suivant:
+\begin{theo}(2.2 p17 \cite{Kac})
+Soit $\mathfrak{g}(A)$ une algèbre de Lie symétrisable. On fixe une décomposition en espaces de racines. Alors il existe une forme bilinéaire symétrique $\ad$-invariante sur $\mathfrak{g}(A)$ et à valeur dans $\mathbb{C}$ telle que :
+\begin{enumerate}
+\item $(\mathfrak{g}_{\alpha}\vert\mathfrak{g}_{\beta})=0$ si $\alpha +\beta\neq 0$
+\item $(\mathfrak{g}_{\alpha}\vert\mathfrak{g}_{-\alpha})$ est non dégénérée pour $\alpha\neq 0$ ainsi $(-\vert -)$ est un accouplement de $\mathfrak{g}_{\alpha}$ avec $\mathfrak{g}_{-\alpha}$ 
+\item $[x,y]=(x\vert y)\nu^{-1}(\alpha)$
+\end{enumerate}
+\end{theo}
+Etant donnée une algèbre de Lie symétrisable munie d'une telle forme bilinéaire on peut alors écrire $A$ comme une matrice de Cartan généralisée :$$A=\left(2\frac{(\alpha_i\vert\alpha_j)}{(\alpha_i\vert\alpha_i)}\right)_{i,j}$$.\\ On définit le groupe de Weyl de l'algèbre de Lie $\mathfrak{g}(A)$ :		
+\begin{Def}Pour $i=1,...,n$ on définit la réflexion simple $s_i$ sur $\mathfrak{h}^{\ast}$ par $$s_i(\lambda)=\lambda-\langle \lambda,\alpha_i^{\vee}\rangle\alpha_i,\quad \lambda\in\mathfrak{h}^{\ast}$$ le groupe de Weyl noté $W$ est un sous groupe de $Gl(\mathfrak{h}^{\ast})$ engendré par les réflexions simples.\end{Def}
+\begin{Def} Un $\mathfrak{g}(A)$-module $V$ est intégrable si pour tout $i\in\{1,...,n\}$ les générateurs $e_i$,$f_i$ sont localement nilpotent sur $V$.
+\end{Def}
+La proposition suivante découle de la structure des $\mathfrak{g}(A)$-modules intégrables (voir 3.6 dans  \cite{Kac}) :
+\begin{Prop}\cite{Kac} (prop 3.7 chap 3 ) \begin{enumerate}
+\item Soit $V$ un un $\mathfrak{g}(A)$ module intégrable alors $\mult w(\lambda)=\mult \lambda$ pour tout $\lambda\in\mathfrak{h}^{\ast}$ et pour tout $w\in W$ de plus l'ensemble des poids de $V$ est $W$-invariant.
+\item Le système de racine $\Delta$ est $W$-invariant et les racines $W$-conjuguées ont même multiplicités.
+\item Lemme d'échange :  $\Delta_+\setminus \{\alpha_i\}$ est $s_i$-invariant.
+\end{enumerate}\end{Prop}
+\subsection{Algèbres de Kac-Moody affines}
+Dans cette section on définit les algèbre de Kac-moody affines, on présente leurs systèmes de racines constitués de racines réelles et imaginaires. Les racines réelles ont des propriétés classiques c'est à dire qu'elles ont les même propriétés que les  racines  d'une algèbre de Lie semi-simple complexe. Les racines imaginaires sont des racines qui ne sont pas conjuguées par le groupe de Weyl et ont des multiplicités supérieures à un. 
+\begin{Def} $\mathfrak{g}(A)$ est une algèbre de Lie affine si $A$ est une matrice semi-définie positive de corang 1 et il existe un unique vecteur $\delta=\underset{i=0}{\overset{l}{\sum}}a_i\alpha_i$ tel que $A\delta =0$ \end{Def} %où les $a_i:=\underset{j\in\{1,...n\}}{\sup}(\vert(\alpha_i\vert\alpha_j)\vert)$ pour $i=1,...,n$ sont les indices des vertex du diagramme de Dynkin associé à $A$.\end{Def}
+L'algèbre semi-simple complexe notée $\go$, ayant pour racines simples la famille $\pio=\{\alpha_1,...,\alpha_l\}$ formant base du dual de la sous algèbre de Cartan $\h0$, est obtenue en supprimant la ligne et la colonne 0  de la matrice $A$. On définit la plus haute racine par $\theta=\underset{i=1}{\overset{l}{\sum}}a_i\alpha_i=\delta-a_0\alpha_0$ où  $a_i:=\underset{j\in\{1,...n\}}{\sup}(\vert(\alpha_i\vert\alpha_j)\vert)$ pour $i=1,...,n$.
+\begin{Def}Une racine $\alpha$ est dite réelle si il existe $\alpha_i\neq\alpha$ et $w\in W$ tel que $\alpha=w(\alpha_i)$. On note $\Delta^{re}$ l'ensemble des racines réelles. Dans le cas contraire on dit que $\alpha$ est une racine imaginaire et on note $\Delta^{im}$ l'ensemble des racines imaginaires, on a alors $\Delta=\Delta^{re}\sqcup\Delta^{im}$. Si $\mathfrak{g}(A)$ est une algèbre de Lie symétrisable et $(-\vert-)$ une forme bilinéaire symétrique invariante et non dégénérée, alors $\alpha$ est une racine imaginaire si et seulement si $(\alpha\vert\alpha)\leqslant 0$ (5.2 \cite{Kac}). Les racines réelles vérifient les propriétés classiques des racines d'algèbre de Lie semi-simples complexes, c'est à dire qu'elles sont toutes de multiplicités 1.   \end{Def}
+Dans le cas d'une algèbre de Kac-Moody affine, on peut décrire explicitement les racines imaginaires (5.6 \cite{Kac}): $$\Delta^{im}=\mathbb{Z}\setminus\{0\}\delta$$ Le centre de $\mathfrak{g}(A)$ est de dimension 1, il est engendré par l'élément central noté $K$ définit par $$K=\underset{i=0}{\overset{l}{\sum}}a_i^{\vee}\alpha_i^{\vee}$$ où les $a_i^{\vee}$ sont les indices du diagrammes de Dynkin associé à $A^t$. On définit une forme bilinéaire invariante symétrique et on fixe un élément $d\in\mathfrak{h}$ tel que $\langle\alpha_i,d\rangle=0$ pour $i=1,...,l$. On obtient alors la décomposition en sous espace orthogonaux suivante (6.2.5 \cite{Kac}):
+$$\mathfrak{h}=\h0\oplus(\mathbb{C}K+\mathbb{C}d)$$ Soit $\w0$ le groupe de Weyl de $\go$, on définit les endomorphismes de translations sur $\h0$ notés $t_{\alpha},\alpha\in\overset{o}{\mathfrak{h}^{\ast}}$ par l'équation suivante : $$t_{\alpha}(\lambda)=\lambda+\langle\lambda,K\rangle\alpha-((\lambda\vert\alpha)+\frac{1}{2}\vert\alpha\vert^2\langle\alpha,K\rangle)\delta$$ En particulier si $\langle\lambda,K\rangle=0$ on a $$t_{\alpha}(\lambda)=\lambda-\langle\alpha,K\rangle\delta$$ On en déduit immédiatement une propriété d'additivité :$$t_{\alpha}t_{\beta}=t_{\alpha+\beta}$$ et $$t_{w(\alpha)}=wt_{\alpha}w^{-1}\quad\forall w\in W$$ par $W$-invariance de la forme bilinéaire et le fait que $W$ laisse fixe $\delta$ et $K$. On note $T$ le groupe abélien libre engendré par les $t_{\alpha}$.
+\begin{Prop}\label{Weylaff} \cite{Kac} (Prop 6.5 ) Le groupe de Weyl \textit{affine} se décompose comme produit semi-direct du groupe de Weyl $\w0$ de l'algèbre de Lie $\mathfrak{g}$ par le groupe de translation $T$ : $$W=\w0\ltimes T$$ 
+\end{Prop}
+\subsection{Algèbres de lacet}
+On présente les algèbres de Lie de lacet qui fournissent un exemple important de réalisation d'algèbres de Kac-Moody. Elles sont des extensions centrales d'algèbres de lie semi-simple tensorisées par l'algèbre des polynômes de Laurent à une variable. On va décrire le système de racines associé à de telles algèbres de Lie.\\ Soit $\mathfrak{g}$ une algèbre de Lie semi-simple complexe, $\mathfrak{h}$ une sous algèbre de Cartan et $\pio$ une base de racines simples.\\
+On pose $\mathcal{L}(\mathfrak{g}):=\mathfrak{g}\otimes\mathbb{C}[t,t^{-1}]$, le commutateur de $\mathcal{L}(\mathfrak{g})$ est donné par : $$[t^m\otimes x,t^n\otimes y]=t^{m+n}\otimes [x,y]_{0}$$ où $[x,y]_{0}$ est le commutateur de l'algèbre de Lie $\mathfrak{g}$. On définit une forme bilinéaire symétrique invariante sur $\mathcal{L}(\mathfrak{g})$ par $$\psi(t^m\otimes x,t^n\otimes y)=Res(\frac{d}{dt}(t^m)t^n)(x\vert y)$$ où $(-\vert-)$ est une forme bilinéaire invariante sur $\mathfrak{g}$ par exemple la forme de Killing. Soit $K$ un élément central et $d$ une dérivation de $\mathcal{L}{\mathfrak{g}}$. 
+\begin{Def}L'algèbre de Lie affine notée $\widehat{\mathfrak{g}}$ associée à $\mathfrak{g}$ avec élément central $K$ et dérivation $d$ s'écrit :  $$\widehat{\mathfrak{g}}:=\mathcal{L}\mathfrak{g}\oplus(\mathbb{C}K+\mathbb{C}d)$$ avec $$[t^m\otimes x+\lambda K+ \mu d;t^n\otimes y+\lambda_1 K+\mu_1 d]=t^{m+n}\otimes [x,y]_0+\delta_{m,-n}(x\vert y)K+ n\mu t^n\otimes y-m\mu_1 t^m\otimes x$$ \end{Def}
+On a une sous algèbre de Cartan de $\widehat{\mathfrak{g}}$ donnée par $$\widehat{\mathfrak{h}}:=\mathfrak{h}\oplus \mathbb{C}K\oplus \mathbb{C}d$$ et son dual : $$\widehat{\mathfrak{h}}^{\ast}=\mathfrak{h}^{\ast}\oplus \mathbb{C}\Lambda_0\oplus\mathbb{C}\delta $$ où $\langle\delta,d\rangle =\langle\Lambda_0, K\rangle=1$ et $\langle\delta, K\rangle =\langle\Lambda_0, d\rangle=0$
+
+Soit $\theta$ plus haute de racine de $\mathfrak{h}$. Soit $f_{\theta}\in \mathfrak{g}_{\theta}$ tel que $(f_{\theta}\vert\omega(f_{\theta}))=-2/(\theta\vert\theta)$ où $\omega$ est l'involution de Cartan de $\mathfrak{g}$. On pose $e_{\theta}=-\omega(f_{\theta})$ et on déduit $[e_{\theta},f_{\theta}]=-\theta^{\vee}$. Posons $e_0=t\otimes e_{\theta}$ et $f_0=t^{-1}\otimes f_{\theta}$. On obtient $[e_0,f_0]=2/(\theta\vert\theta)K-\theta^{\vee}$ Posons $e_i=1\otimes E_i$ et $f_i=1\otimes F_i$ pour $i=1,...,n$ où les $E_i,F_i$ sont des générateurs de l'algèbre de Lie $\mathfrak{g}$. On pose $\alpha_0=\delta-\theta$, on a $\alpha^{\vee}=2/(\theta\vert\theta)K-\theta^{\vee}$ et un système de racine simples de $\widehat{\mathfrak{g}}$ donné par $\Pi=\{\alpha_0,...,\alpha_n\}$.
+
+ Un calcul direct utilisant l'action adjointe de l'algèbre de Cartan $\mathfrak{h}$ sur l'algèbre de Lie  $\widehat{\mathfrak{g}}$ nous permet d'obtenir une décomposition en espace de poids  : \begin{Prop} On a la décomposition en espace de poids de la représentation adjointe suivante :
+$$\widehat{\mathfrak{g}}=\widehat{\mathfrak{h}}\oplus(\underset{\alpha\in\Delta}{\bigoplus}\mathcal{L}\mathfrak{g}_{\alpha})$$ avec $$\mathcal{L}\mathfrak{g}_{\gamma +j\delta}=t^j\otimes\mathfrak{g}_{\gamma}\quad\mathcal{L}\mathfrak{g}_{j\delta}=t^j\otimes\h0$$ Pour tout $j\in\mathbb{Z}$ et $\gamma\in\Deltao$ où $\Deltao$ est le système de racine de $\mathfrak{g}$. Le système de racine de $\widehat{\mathfrak{g}}$ est donné par $\Delta=\Delta^{re}\sqcup\Delta^{im}$ avec $\Delta^{re}=\{\gamma+j\delta,\gamma\in\Deltao,j\in\mathbb{Z}\}$ où les racines réelles ont toutes multiplicités 1 et $\Delta^{im}=\{j\delta,j\in\mathbb{Z}^{\ast}\}$ les racines imaginaires ayant multiplicités $\dim\mathfrak{h}$. Par ailleurs, étant donné la définition de $\delta$ le groupe de Weyl laisse bien fixe les racines imaginaires.\end{Prop} 
+
+L'algèbre $\widehat{\mathfrak{g}}$ se réalise comme algèbre de Kac-Moody :
+\begin{theo}\cite{Kac} (Th. 7.4) $\widehat{\mathfrak{g}}$ est une algèbre de Kac-Moody associée à la matrice de Cartan généralisée $A=\langle\alpha_i,\alpha_j^{\vee}\rangle$ de sous algèbre de Cartan $\widehat{\mathfrak{h}}$ avec système de racine simples $\Pi=\{\alpha_0\}\sqcup\pio$\end{theo}
+\subsection{Structure de $\widehat{sl}_{2}$}
+Dans le cas de $\widehat{sl}_{2}$ le système de racine est donné par $\Delta=\{\alpha +n\delta , n\in\mathbb{Z}\}\sqcup\mathbb{Z}\setminus{0}$ et $\Pi=\{\delta-\alpha,\alpha\}$ où $\alpha$ est la plus haute racine de $sl_{2}$. On définit les opérateurs de translations par $$t_{\alpha}=s_{\alpha}s_{\delta-\alpha}$$ ainsi on a $$ t_{\alpha}(\alpha)=\alpha-(\alpha\vert\alpha)\delta=\alpha-2\delta$$ et l'opérateur de translation $t_{\alpha}$ laisse fixe les racines imaginaires. Ainsi $t_{\alpha}$ envoie l'espace de poids $\mathcal{L}g_{\alpha + n\delta}$ sur $\mathcal{L}g_{\alpha + (n-2)\delta}$  et l'espace de poids $\mathcal{L}g_{-\alpha + n\delta}$ sur $\mathcal{L}g_{-\alpha + (n+2)\delta}$ pour tout $n\in\mathbb{Z}$. On a l'algèbre de Borel standard $$\widehat{\mathfrak{b}}=\widehat{\mathfrak{h}}\oplus(t\mathbb{C}[t]\otimes sl_{2})\oplus\mathbb{C}e_{\alpha}$$ Après une "infinité" d'itération de l'opérateur de translation sur les racines réelles, les racines simples sont envoyées à l'infini et on obtient la sous algèbre de Borel "non standard" suivante :
+$$\widehat{\mathfrak{b}}'=\widehat{\mathfrak{h}}\oplus (e_{\alpha}\otimes\mathbb{C}[t,t^{-1}])\oplus\mathfrak{h}\otimes t\mathbb{C}[t]$$ On pose pour tout $n\in\mathbb{Z}$, $h\in\mathfrak{h}$ \begin{align*}
+& x_{n}^{+}=t^{n}\otimes e_{\alpha}
+& x_{n}^{-}=t^{n}\otimes f_{\alpha}
+& h_{n}= t^{n}\otimes h
+\end{align*}
+On en déduit de nouvelles relations de commutations définissant $\widehat{sl}_{2}$: \begin{align*}
+&[x_{n}^{+},x_{k}^{-}]=t^{n+k}\otimes h=h_{n+k}\quad\forall n,k\in\mathbb{Z},\quad n+k\neq 0\\
+&[h_n,x_k^{+}]=2x_{n+k}^{+}\quad \vert n\vert\geqslant 1\\
+&[h_k,h_l]=2\delta_{k-l}K\\
+&[d,h_k]=kh_k\\
+&[d,x_k^{+}]=kx_n^{+}\\
+\end{align*}
+\pagebreak
+\section{Lien avec $U_q(\widehat{sl}_{2})$}
+Les groupes quantiques sont nés de l'étude des solutions exactes de modèles apparaissant en physique statistique et en mécanique quantique, comme par exemple la chaine de spin de Heisenberg. En principe, étant donné un Hamiltonien résoudre exactement le modèle revient à diagonaliser celui-ci. Pour cela on engendre une algèbre par des observables qui commutent avec le hamiltonien. Cette algèbre est encodée par l'équation de Yang-Baxter dont les solutions sont données par une matrice $R$ que l'on appel communément $R$-matrice.\vspace{0.5cm}
+
+Une \textit{bigèbre tressée} est la donnée d'une algèbre de Hopf et d'une $R$-matrice dîte universelle qui "mesure" la non-cocomutativité de l'algèbre de Hopf (le mot tressé provenant du fait que la $R$ matrice vérifie des relations de commutation du groupe de tresse). La construction RTF \cite{RTF}, fournit un moyen de générer de telles $R$-matrices et de construire les groupes quantiques comme "déformation" de bigèbres tressées. En parallèle Drienfel'd et Jimbo \cite{Drienf0}\cite{Jimb} ont formalisés la notion de groupe quantique en considérant l'algèbre de Hopf d'une algèbre enveloppante d'une algèbre de Lie et en formant l'anneau des séries formelles de cette algèbre enveloppante dépendant d'un paramètre $h$.\vspace{0.5cm}
+
+Dans cette section on présente d'abord une discussion un peu informelle sur les groupes quantiques basés sur le livre \cite{Kassel}. Ceci afin d'avoir une première approche géométrique des groupes quantiques sur l'exemple de $U_q(sl_2)$. On verra notamment que $U_q(sl_2)$ exhibe des propriétés propres aux groupes quantiques : on peut aussi bien interpréter $U_q(sl_2)$ comme déformation paramétrée par $q$ de l'algèbre de fonctions régulières sur le groupe $\sl2$ ou encore comme déformation de l'algèbre des dérivations en $q$-dérivations du plan quantique. Cette interprétation se traduit algébriquement par le fait que l'algèbre de Hopf $U_q(sl_2)$, non commutative et non co-comutative est auto-duale. Aussi es interprétations nous permettrons de mieux comprendre la définition de $U_q(\widehat{sl}_2)$ que nous donnons en terme de générateurs et relations.\vspace{0.5cm}
+
+
+Nous donnons ensuite une autre autre présentation de $U_q(\widehat{sl}_2)$ dû à Drienfel'd \cite{Drienf1} et qui nous sera utile dans le contexte de l'isomorphisme avec l'algèbre de Hall des faisceaux cohérents sur $\P1$. On donnera alors une décomposition de $U_q(\widehat{sl}_2)$ de type PBW, dans une version quantique afin d'exhiber une $R$-base d'une sous algèbre positive $V^+$ de $U_q(\widehat{sl}_2)$ à partir de fonction génératrices et des générateurs $x_n^+$. Enfin on explicitera un isomorphisme entre cette $R$-base et celle donnée dans \ref{HAstruc}.
+
+
+\subsection{Algèbre enveloppante}
+Soit $\mathfrak{g}$ une algèbre de Lie. L'algèbre enveloppante notée $U(\mathfrak{g})$ associe une structure d'algèbre associative naturelle à l'algèbre de lie $\mathfrak{g}$. On énonce sans démonstration le théorème de Poincaré-Birkhoff-Witt qui donne une base de l'algèbre $U(\mathfrak{g})$. 
+\begin{Def} Soit $A$ une algèbre associative munie d'un crochet $[\quad,\quad]$ tel que $(A,[\quad,\quad])$ soit une algèbre de Lie. Par exemple on peut choisir $[x,y]=xy-yx\quad\forall x,y\in A$. \textit{L'algèbre universelle enveloppante} de $\mathfrak{g}$ est l'algèbre associative $U(\mathfrak{g})$ solution du problème universel suivant : Pour toute algèbre associative $A$ et tout application d'algèbre de Lie $\phi : \mathfrak{g}\to A$ avec l'injection naturelle $i:\mathfrak{g}\to U(\mathfrak{g})$ rendant le diagramme suivant commutatif : $$\xymatrix{
+    \mathfrak{g} \ar[r]^{\phi} \ar[d]_i  & A \\
+    U(\mathfrak{g}) \ar[ru]_{\exists\psi} 
+  }$$
+  \end{Def}
+Ainsi par constructions les $\mathfrak{g}$ et $U(\mathfrak{g})$ ont les même représentations\\ Il est possible de définir l'algèbre enveloppante par une construction explicite. C'est à dire, $U(\mathfrak{g})$ est le quotient de l'algèbre tensorielle : $$T(\mathfrak{g})=\underset{n\geqslant 0}{\bigoplus}\mathfrak{g}^{\otimes n}$$ avec $\mathfrak{g}^{\otimes 0}=\mathbb{C}$ par l'idéal bilatère engendrée par les éléments $xy-yx-[x,y]$ pour $x,y\in\mathfrak{g}$.
+
+On fixe une base $x_1, x_2,...$ de l'algèbre de Lie $\mathfrak{g}$. Les relations de commutation définissant la structure de $\mathfrak{g}$ nous permettent d'ordonner les monômes de $U(\mathfrak{g})$, autrement dit on a le théorème de Poincaré-Birkhoff-Witt (PBW) :
+\begin{theo}\label{PBW} L'ensemble $$\{x_{i_1}...x_{i_r}\vert r\geqslant 0, i_1\leqslant i_2\leqslant ...\leqslant i_r\}$$ forme une base de $U(\mathfrak{g})$ \end{theo} Ainsi $U(\mathfrak{g})$ a la même taille que l'algèbre symétrique de $\mathfrak{g}$  et es toujours de dimension infinie.
+
+Enfin, l'algèbre enveloppante a une structure d'algèbre de Hopf cocommutative (et non commutative) avec coproduit $\Delta$, antipode $S$ et counité $\epsilon$ telle que \begin{equation*}\Delta(x)=1\otimes x+x\otimes 1\qquad S(x)=-x\qquad \epsilon(x) =0 
+\end{equation*}
+\subsection{Déformation de l'algèbre enveloppante de $sl2$}
+Cette section est une discussion informelle concernant une interprétation géométrique des relations entre générateurs de $U_q(\widehat{sl}_{2})$ que l'on présentera dans la section suivante. On verra que le groupe quantique $U_q(sl_2)$ s'interprète comme une déformation de l'algèbre des fonctions régulières sur le groupe $\sl2(\mathbb{C})$ que l'on notera $\mathbb{C}[\sl2]$. Plus précisément connaissant l'action de l'algèbre de Lie $sl_2$ sur le plan via les dérivations de $\mathbb{C}[X,Y]$ on comprendra $U_q(sl_2)$ en construisant une action de $q$-dérivations, comme $q$-\textit{déformation} des dérivations \textit{classiques}, sur l'algèbre des fonctions du \textit{plan quantique} : $$\mathbb{C}_q\langle X,Y\rangle := \mathbb{C}[X,Y]/(XY-qYX)$$
+On définit une co-action de l'algèbre des matrices carrés à coefficients dans $\mathbb{C}$, notée $\mathbb{C}[M_2]$, sur le plan quantique. 
+\begin{Def} Soit $M\in M_2$, soient $X=\left(\begin{array}{c} x \\
+y\\
+\end{array}\right)$ et $X'\left(\begin{array}{c} x' \\
+y'\\
+\end{array}\right)$ tels que $X'=MX$ et $X''=M^tX$. Afin que la coaction de $\mathbb{C}[M_2]$ sur $\mathbb{C}_q\langle X,Y\rangle$ soit bien définie il faut que $x',y',x'',y''$ respectent les relations de commutations des indéterminées du plan quantique. Ceci impose des relations sur les coefficients de $M$ (théorème IV 3.1 p78 de \cite{Kassel}). Notons $J_q$ l'idéal de $\mathbb{C}[M_2]$ engendré par ces relations. Définissons également le \textit{déterminant quantique} de $M$ comme $$\det_q=M_{22}M_{11}-qM_{12}M_{21}$$ L'algèbre quantique des fonctions de $\sl2$ est alors définie par l'égalité suivante : $$\mathbb{C}_q[\sl2]:=\mathbb{C}[M_2]/(J_q,\det_q-1)$$   \end{Def} On peut définir une structure d'algèbre de Hopf non commutative et non co-commutative sur $\mathbb{C}_q[\sl2]$. Le coproduit étant donné par la multiplication des matrices et l'antipode par l'inversion d'une matrice via la comatrice. Ceci permet également d'induire une structure de $\mathbb{C}_q[\sl2]$-co-module sur l'algèbre des fonctions du plan quantique $\mathbb{C}_q\langle X,Y\rangle$.\\\\ Action de $U_q(sl_2)$ sur le plan quantique. Rappelons que l'on peut définir une structure de $sl_2$-module sur $\mathbb{C}[x,y]$ via \begin{align*}
+&eP=x\frac{\partial}{\partial y} P \\
+&fP=\frac{\partial}{\partial x} P\cdot y \\
+&hP=x\frac{\partial}{\partial x}P-\frac{\partial}{\partial y}P\cdot y 
+\end{align*}
+On définit les $q$ dérivations, analogues \textit{quantiques} des dérivations de $\mathbb{C}[x,y]$ :
+\begin{Def} Une $q$-dérivation de $\mathbb{C}_q\langle x,y\rangle$ est telle que $$\frac{\partial_q}{\partial x}(x^my^n)=[m]x^{m-1}y^{n}, \quad \frac{\partial_q}{\partial y}(x^my^n)=[n]x^{m}y^{n-1}$$ \end{Def} Naïvement on peut définir des éléments $E,F,K$ correspondant à $e,f,h$ via leur action sur le plan quantique en remplaçant les dérivations de $sl_2$ par les $q$-dérivations définies précédemment. En calculant les relations de commutations on se rend compte que les éléments $E,F,K$ correspondent exactement aux générateurs de $U_q(sl_2)$ (prop VII 3.2 \cite{Kassel})\\\\
+Outre leur non commutativité et leur non cocommutativité, les groupes quantiques possèdent la propriété importante d'êtres en dualité avec eux mêmes. La proposition suivante vaut pour notre exemple élémentaire $U_q(sl_2)$ mais elle se généralise à l'algèbre quantique enveloppante d'une algèbre de Kac-Moody par un théorème de Drienfeld \ref{}
+\begin{Prop}Soit $U_q(\mathfrak{b}^+)$ l'algèbre engendrée par les générateurs $E$ et $K$. Cette algèbre est en dualité avec elle même  via l'accouplement de Hopf non dégénéré suivant : $$\langle-,-\rangle : U_q(\mathfrak{b}^+)\otimes U_q(\mathfrak{b}^+)\to C(q)$$ telle que \begin{align*}
+&\langle E,E\rangle = 1\qquad \langle E, K\rangle =\langle K,E\rangle =0 \\
+&\langle K,K\rangle = q
+\end{align*}
+\end{Prop}
+De plus $U_q(\mathfrak{b}^+)$ est isomorphe à $U_q(\mathfrak{b}^-)$ via l'involution de Cartan qui envoie $E$ sur $F$. Ainsi $U_q(sl_2)$ est en dualité avec elle même via l'accouplement de Hopf non dégénéré précédent. On en déduit une double interprétation de $U_q(sl_2)$ : on peut la voir comme \textit{déformation de l'algèbre de fonction} du groupe réductif $\sl2$ et également comme \textit{déformation de l'algèbre des dérivations} sur le plan quantique. Ces déformations d'algèbres pouvant s'interpréter comme \textit{familles d'algèbres paramétrées par $q$}.
+\subsection{Deux présentations de $U_q(\widehat{sl}_{2})$}
+Soit $\mathfrak{g}$ une algèbre de Kac-Moody avec une matrice de Cartan généralisée $A=(a_{ij})_{0\leqslant i,j\leqslant l}$. L'algèbre quantique enveloppante $U_q(\mathfrak{g})$ est une $\mathbb{C}(q)$-algèbre engendrée par la famille $\{K_i,E_i,F_i\vert i=0,..l\}$ vérifiant les relations :
+\begin{align}
+&K_iK_j=K_jK_i\\
+&K_iE_jK_i^{-1}=q^{a_{ij}/2}E_j\\
+&K_iF_jK_i=q^{-a_{ij}/2}F_j\\
+&[E_i,F_j]=\delta_{ij}\frac{K_i-K_j^{-1}}{q^{1/2}-q^{-1/2}}\\
+&\underset{k=0}{\overset{1-a_{ij}}\sum}(-1)^{k}\left[\overset{1-a_{ij}}{k}\right] E_i^lE_jE_i^{1-a_{ij}-l}=0\\
+&\underset{k=0}{\overset{1-a_{ij}}\sum}(-1)^{k}\left[\overset{1-a_{ij}}{k}\right] F_i^lF_jF_i^{1-a_{ij}-l}=0
+\end{align}
+Les deux dernières équations sont les analogues quantiques des relations de Serre dans une algèbre de Kac-Moody. En prenant pour matrice de Cartan : $$A=\begin{pmatrix}
+2 & -2 \\
+-2 & 2 \\
+\end{pmatrix}$$ on a une présentation de  $U_q(\widehat{sl}_{2})$, initialement définie par Drienfel'd et Jimbo.\vspace{0.5cm}
+
+On utilisera une autre présentation de $U_q(\widehat{sl}_{2})$, donnée par Drienfel'd \cite{Drienf1},  pour comprendre son lien avec l'algèbre de Hall étudiée précédemment. 
+\begin{Def}On rappel que $R$ est un corps contenant $\mathbb{Q}$ et également une $Z$-algèbre. On définit $U_q(\widehat{sl}_{2})$ comme la R-algèbre engendrée par $K^{\frac{+}{}}$ $C^{\frac{+}{}1/2}$ (central), $x_n^{\frac{+}{}}$ et $h_r$ pour $r\in\mathbb{Z}\setminus{0}$ et $n\in\mathbb{Z}$ vérifiant les relations suivantes \begin{align}
+& KK^{-1}=K^{-1}K=1\\
+& C^{1/2}C^{-1/2}=C^{-1/2}C^{1/2}=1\\
+& [K,h_r]=0\\
+&[h_r,h_s]=\delta_{r,-s}\frac{[2r]}{r}\frac{C^r-C^{-r}}{v-v^{-1}}\\
+&Kx_n^{\frac{+}{}}=v^{\frac{+}{}}x_n^{\frac{+}{}}K\\\
+&[h_r,x_n^{\frac{+}{}}]=\frac{+}{}\frac{[2r]}{r}C^{\frac{}{+}\vert r\vert /2}x_{n+r}^{\frac{+}{}}\\\label{comx}
+&x_{m+1}^{\frac{+}{}}x_{n}^{\frac{+}{}}-v^{\frac{+}{}2}x_{n}^{\frac{+}{}}x_{m+1}^{\frac{+}{}}=v^{\frac{+}{}2}x_{m}^{\frac{+}{}}x_{n+1}^{\frac{+}{}}-x_{n+1}^{\frac{+}{}}x_{m}^{\frac{+}{}}\\
+&[x_m^{+},x_n^{-}]=\frac{C^{(m-n)/2}\psi_{m+n}^+-C^{(m-n)/2}\psi_{m+n}^-}{v-v^{-1}}
+\end{align}
+\end{Def}
+On trouvera dans \cite{Beck} (4.6) un isomorphisme explicite entre ces deux présentations induits par les opérateurs de Lusztig comme éléments du groupe de tresse, associé au groupe de Weyl affine de $\widehat{sl}_2$, agissant sur $U_q(\widehat{sl}_2)$. Soit $W$ le groupe de Weyl de $\widehat{sl}_2$, le groupe de tresse associé à celui-ci est le groupe engendré par des opérateurs $T_{w}$ ($w\in W$) tels que :
+$$T_wT_{w'}=T_{ww'}$$ si $l(w)+l(w')=l(ww')$ où $l(w)$ est la longueur de $w$, c'est à dire pour $w=s_{i_1}...s_{i_n}$ on a $l(w)=n$\\
+On va  démontrer le théorème suivant reliant la structure de la sous algèbre de Hall des faisceaux cohérents engendré par les $O(n)$ et les faisceaux de torsions avec une sous algèbre positive de  $U_q(\widehat{sl}_{2})$ : \begin{theo}\label{isofinal} Soit $V^+$ une sous algèbre de  $U_q(\widehat{sl}_{2})$ engendrée par $x_n^+$ et $h_rC_n^{r/2}$ pour $n\in\mathbb{Z}$ et $r\geqslant 1$. Alors les $R$ algèbres $B_{(R)}$ et $V^+$ sont isomorphes.  \end{theo} 
+\subsection{Une R-base de  $U_q(\widehat{sl}_{2})$ et isomorphisme}
+Dans cette section on exhibe une base de $U_q(\widehat{sl}_{2})$, il s'agit d'une construction de type Poincaré-Birkhoff-Witt (PBW). On définit les éléments $\tilde{\psi}^{\frac{+}{}}_{\frac{+}{}r}$ pour $r\geqslant 1$ par : $$1\frac{+}{}\underset{r\geqslant 1}{\sum}(v-v^{-1})\widetilde{\psi}^{\frac{+}{}}_{\frac{+}{}r}s^{\frac{+}{}r}=\exp\left(\frac{+}{}(v-v^{-1})\underset{r\geqslant 1}{\sum}h_{\frac{+}{}r}C^{\frac{+}{}\frac{r}{2}}s^{\frac{+}{}r}\right)$$ On définit également plusieurs sous algèbres de  $U_q(\widehat{sl}_{2})$ :
+\begin{itemize}
+\item $N^+$ sous algèbre (resp.$N^-$) engendrée par $x_n^+$(resp. $x_n^-$) pour $n\in\mathbb{Z}$.
+\item $H$ sous algèbre engendrée par $K,C^{\frac{+}{}\frac{1}{2}},h_r$ pour $r\geqslant 1$. 
+\item $H^+$,$H^-$ engendrées respectivement par $\tilde{\psi}^+_{+r}$ et $\tilde{\psi}^-_{-r}$
+\item $H^0$ engendrée par  $K,C^{\frac{+}{}\frac{1}{2}}$
+\end{itemize}
+\begin{Prop}\label{Rbase} L'application : $N^-\otimes H^-\otimes H^0\otimes H^+\otimes N^+\to U_q(\widehat{sl}_{2})$ est un isomorphisme linéaire. \end{Prop} 
+
+La preuve de l'injectivité utilise essentiellement une version quantifiée du théorème de PBW que l'on trouve dans \cite{Beck} 6.1 et que l'on énonce sans démonstration :
+\begin{Prop}\label{qPBW}
+Soit $\beta\in\Delta^{\mbox{re}}_{+}$, on choisit $w_{\beta}\in W$ tel que $w_{\beta}(\beta)=\alpha_{i_\beta}$ avec $\alpha_{i_\beta}$ une racine simple de $\widehat{sl}_{2}$, $i_\beta\in\{0,1\}$. Soient $\kappa\in\mathbb{N}^{\Delta^{\mbox{re}}_{+}}$ et $\iota\in\mathbb{N}^{\Delta^{\mbox{im}}_{+}}$ on définit $E_\beta=T_{w_\beta}(E_{i_\beta})$.  On pose : $$E^{\kappa, \iota}=\prod E^{\kappa(\beta)}_{\beta}\left(C^{k/2}\widetilde{\psi}_{k}\right)^{\iota(k\delta)}$$ où le produit se fait sur un ordre total des racines réelles positives comptées avec multiplicités. On définit également $F^{\kappa', \iota'}$ de façon similaire (en remplaçant E par F). Alors, la famille : $$F^{\kappa', \iota'}K^rC^{r'}E^{\kappa, \iota}$$ ($r,r'\in\mathbb{Z}$) est linéairement indépendante. 
+\end{Prop}
+Une preuve de ce théorème utilise essentiellement une spécialisation en $v=1$ des combinaisons linaires finies de $F^{\kappa', \iota'}K^rC^{r'}E^{\kappa, \iota}$ ($r,r'\in\mathbb{Z}$) (quitte à multiplier par une puissance suffisante de $v-1$ pour évacuer le cas de fonctions ayant un pôle en $v=1$) et le théorème classique de PBW permet de déduire l'indépendance linéaire de ces éléments. 
+
+On est maintenant en mesure d'esquisser une démonstration de \ref{Rbase} : 
+\begin{proof}
+La surjectivité se voit à partir des relations de commutations définissant $U_q(\widehat{sl}_{2})$. La famille $\left(\underset{r\geqslant 1}{\prod}(\tilde{\psi}^{+}_{r})^{d_r}\right)$ engendre $H^+$, les éléments du produit commutant deux à deux. De même on peut exhiber une famille génératrice similaire pour $H^-$ (en remplaçant + par -). Une récurrence immédiate utilisant les relations de commutations des $x_n$ nous assure que la famille $\left(\underset{n\in\mathbb{Z}}{\prod}(x_n^+)^{c_n}\right)$ engendre $N^+$, il en est de même pour $N^-$ (en remplaçant + par -). 
+ La proposition \ref{qPBW} nous assure que la famille formée par les $$\underset{n\geqslant 0}{\prod}(x^{-}_{-n})^{c_n}\underset{r\geqslant 1}{\prod}(\widetilde{\psi}^{-}_{-r})^{d_r}K^aC^{b/2}\underset{r\geqslant 1}{\prod}(\widetilde{\psi}^{+}_{r})^{d'_r}\underset{n\geqslant 0}{\prod}(x^{+}_{n})^{c'_n}$$ est linéairement indépendante (avec $c_n$ et $c'_n$ dans $C$, $d_r$ et $d'_r$ dans $D$.\\ Aussi notons l'existence d'un automorphisme $T$ de $U_q(\widehat{sl}_{2})$ tel que $$T(x_n^{\frac{+}{}})=x^{\frac{+}{}}_{n\frac{}{+}1},\quad T(K^{\frac{+}{}})=K^{\frac{+}{}},\quad T(C^{\frac{+}{}\frac{1}{2}}),\quad T(h_r)=h_r$$ En appliquant un nombre suffisant de fois cet automorphisme à la famille précédente on en déduit que : $$\underset{n\in\mathbb{Z}}{\prod}(x^{-}_{-n})^{c_n}\underset{r\geqslant 1}{\prod}(\widetilde{\psi}^{-}_{-r})^{d_r}K^aC^{b/2}\underset{r\geqslant 1}{\prod}(\widetilde{\psi}^{+}_{r})^{d'_r}\underset{n\in\mathbb{Z}}{\prod}(x^{+}_{n})^{c'_n}$$ est linéairement indépendante ce qui conclut.
+\end{proof}
+On définit des éléments $\tilde{P}_r$ et $P_r$ de $H^+$ pour $r\geqslant 1$ par les fonctions génératrices suivantes :
+\begin{align}
+&\widetilde{P}(s)=1+\underset{r\geqslant 1}{\sum}\widetilde{P}_r s^n=\exp\left(\underset{r\geqslant 1}{\sum}\frac{h_r C^{r/2}}{[r]}s^r\right)\\
+&P(s)=1+\underset{r\geqslant 1}{\sum}P_r s^n=\exp\left(-\underset{r\geqslant 1}{\sum}\frac{h_r C^{r/2}}{[r]}s^r\right)
+\end{align}
+On déduit immédiatement de ces définitions quelques identités dans $U_q{\widehat{sl}_2}[[s]]$qui nous seront utiles : \begin{equation}\label{idP}
+\widetilde{P}(s)P(s)=1\qquad \frac{\widetilde{P}(sv)}{\widetilde{P}(s/v)}=1+\underset{r\geq 1}{\sum}(v-v^{-1})\widetilde{\psi}^+_rs^r
+\end{equation}
+Ces deux identités sont respectivement équivalentes aux suivantes en identifiant les coefficients de même degré dans les séries formelles ($r\geq 1$) : 
+\begin{align}\label{qindalg}
+\widetilde{P}_r+\underset{s=1}{\overset{r-1}{\sum}}\widetilde{P}_{r}P_{r-s}+P_r=0\\
+[r]\widetilde{P}_r=\widetilde{\psi}^+_r+\underset{s=1}{\overset{r-1}{\sum}}v^{-s}\widetilde{P}_s\widetilde{\psi}^+_{r-s}
+\end{align}
+Aussi pour $r\geq 1$: \begin{equation}\label{HR}
+\widetilde{P}_r=\frac{1}{r}\underset{n=1}{\overset{r}{\sum}}\frac{nh_n}{[n]}C^{n/2}\widetilde{P}_{r-n}
+\end{equation}
+Cette dernière identité s'obtient en dérivant $\log(\widetilde{P}(s))$ et en identifiant les coefficients de même degré.\vspace{0.5cm}
+
+
+Définissons les familles suivantes : $$x_{\underset{-}{c}}^+=\underset{n\in\mathbb{Z}}{\prod}(x_n^+)^{c_n},\quad \widetilde{P}_{\underset{-}{d}}=\underset{r\geqslant 1}{\prod}\widetilde{P}_r^{d_r},\quad P_{\underset{-}{d}}=\underset{r\geqslant 1}{\prod}P_r^{d_r},\quad \widetilde{\psi}_{\underset{-}{d}}^+=\underset{r\geqslant 1}{\prod}(\widetilde{\psi}_r^+)^{d_r}$$ avec $(c_n)_n\in C$ et $(d_r)_{r\geqslant 1}\in D$\\ 
+\begin{Prop} L'algèbre $V^+$ est engendrée par les $x_n^+$ et $\tilde{P}_r$ pour $n\in\mathbb{Z}$ et $r\geqslant1$. De plus les familles $(x_{\underset{-}{c}}^+\tilde{P}_{\underset{-}{d}})_{({\underset{-}{c}},\underset{-}{d})\in C\times D},\quad (x_{\underset{-}{c}}^+ P_{\underset{-}{d}})_{({\underset{-}{c}},\underset{-}{d})\in C\times D}\quad\mbox{et}\quad(x_{\underset{-}{c}}^+\tilde{\psi}_{\underset{-}{d}}^+)_{(\underset{-}{c},{\underset{-}{d}})\in C\times D}$ sont des bases du $R$-espace vectoriel $V^+$.\end{Prop}
+\begin{proof} Soit un entier $r\geq 1$ par définition des $\widetilde{P}_{r}$, en particulier d'après la relation algébrique de dépendance \ref{HR} entre les $h_r$ et les $\widetilde{P}_r$, $V^+$ est engendré par $\widetilde{P}_{r}$ et $x_n^+$ comme $R$-algèbre ($[r]$ ne s'annulant pas dans $R$ pour $r\geq 1$). De plus, par récurrence sur $r$ et en utilisant l'équation \ref{HR} (voir lemme 3.3 dans \cite{ChariP} pour les détails calculatoires) on a pour tout entier $n$ :\begin{equation}\label{prxn}
+\widetilde{P}_rx_n^+=\underset{s=0}{\overset{r}{\sum}}[s+1]x_{n+s}^+\widetilde{P}_{r-s}
+\end{equation} Etant donné que $$ T(x_n^{\frac{+}{}})=x^{\frac{+}{}}_{n\frac{}{+}1}\quad\mbox{et}\quad T(\widetilde{P}_r)=\widetilde{P}_r$$ pour tout $n\in\mathbb{Z}$ et $r\geq 1$, en appliquant un nombre suffisant de fois l'opérateur $T$, on trouve que cette égalité est vraie pour tout  $n\in\mathbb{Z}$. Aussi l'isomorphisme \ref{Rbase}  nous assure que l'application : $$\begin{array}{ccccc}
+\varphi & : & N^+\otimes H^+ & \to & V^+ \\
+ & & x_{\underset{-}{c}}^+\otimes \widetilde{P}_{\underset{-}{d}} & \mapsto & x_{\underset{-}{c}}^+\widetilde{P}_{\underset{-}{d}} \\
+\end{array}$$ est un isomorphisme linéaire. D'après les deux équations de dépendance algébrique \ref{qindalg} et le fait que les  $\underset{r\geqslant 1}{\prod}(\widetilde{\psi}^{+}_{r})^{d'_r}$ forment une $R$-base de $H^+$ on déduit que $H^+$ est une algèbre polynomiale en les variable $(P_r)_{r\geq 1}$ ou $(\widetilde{P}_r)_{r\geq 1}$ ou $(\widetilde{\psi}_r)_{r\geq 1}$. Ainsi les familles $(\widetilde{P}_{\underset{-}{d}})_{\underset{-}{d}\in D}$, $(P_{\underset{-}{d}})_{\underset{-}{d}\in D}$ et $(\widetilde{\psi}^+_{\underset{-}{d}\in D})$ forment chacune une $R$-base de $H^+$. Enfin, la famille $(x_{\underset{-}{c}})_{{\underset{-}{c}\in C}}$ est une $R$-base de $H^+$ comme on l'a vu dans la proposition \ref{Rbase} les familles : $$(x_c^+\tilde{P}_d)_{(c,d)\in C\times D},\quad (x_c^+ P_d)_{(c,d)\in C\times D}\quad\mbox{et}\quad(x_c^+\tilde{\psi}_d^+)_{(c,d)\in C\times D}$$ sont donc des bases du $R$-espace vectoriel $V^+$.
+\end{proof}
+\vspace{1cm}
+L'isomorphisme annoncé est désormais clair : les $[O(n)]$ sont envoyés sur les $x_n^+$, $\hat{\mathsf{h}}_r$ sur $\tilde{P}_r$, $\hat{e}_r$ vers $P_r$ et $\hat{q}_r$ vers $(v-v^{-1})\tilde{\psi}_r^+$ et  les relations \ref{comx} et du lemme \ref{HAlibre},\ref{prxn}et \ref{HAcom},\ref{algdep} et \ref{qindalg} correspondent exactement. Les faisceaux localement libres correspondent alors aux générateurs des espaces de racines réelles positives de $\widehat{sl}_2$ et les faisceaux de torsions supportés en des points fermés correspondent aux générateurs des espaces de racines imaginaires positives  de $\widehat{sl}_2$.
+
+\pagebreak
+\section{Conclusion et ouverture}
+Nous avons présenté un isomorphisme entre une sous $R$-algèbre $V^+$ de $U_q(\widehat{sl}_2)$ et $B_(R)$ une $R$-algèbre de $H(\coh)$ engendrée par des faisceaux localement libre et de torsion. Ouvrons simplement sur d'autres liens existant entre algèbre de Hall, groupes quantiques et représentations des carquois. Il existe un autre exemple très important de catégorie finitaire et héréditaire sur laquelle on peut construire une structure d'algèbre de Hall. Il s'agit de la catégorie des représentations de dimension finie des carquois. On sait grâce à un théorème de Beilinson \cite{Beil} que les catégories dérivées de faisceaux cohérents sur $\mathbb{P}_n$ et la catégorie des représentations de dimension finie du carquois de Beilinson sont équivalentes. En particulier la catégorie dérivée $\coh$ est équivalente à la catégorie dérivée des représentations de dimension finies du carquois de Kronecker.  On sait également par un théorème dû à Kac que pour un carquois $Q$ sans boucle et $\mathfrak{g}_Q$ une algèbre de Lie qui lui est associé, les représentations indécomposables de $Q$ sont paramétrées par les racines positives de $\mathfrak{g}_Q$. Dans le cas où $Q$ est le carquois de Kronecker on constate que des familles de représentations indécomposables de $Q$ sont paramétrées par les points de $\P1$. Ce résultat montrant déjà des liens étonnant entre carquois et algèbres de Lie est étendu aux algèbres de Hall par un théorème de Ringel-Green . Celui-ci assure que pour tout carquois $Q$ sans boucle, on peut trouver un plongement d'une sous algèbre positive $U^+_q(\mathfrak{g}_Q)$ dans l'algèbre de Hall des représentations de dimension finies de $Q$ (le corps de base étant fini). En particulier dans le cas où $Q$ est le carquois de Kronecker l'isomorphisme étudié dans ce mémoire nous indique des liens entre des domaines à priori distincts entre la catégorie des faisceaux cohérents sur $\P1$, les représentations indécomposables du carquois de Kronecker  et une sous algèbre positive du groupe quantique $U_q(\widehat{sl}_2)$.  
+\pagebreak
+\bibliographystyle{plain} 
+\bibliography{biblio}
+\end{document} 
+%On obtient alors une suite exacte longue en Cohomologie :$$\xymatrix{
+ %    0 \ar[r]  & \shom(\mathcal{F}/ \tor\mathcal{F}, \tor\mathcal{F}) \ar[r] &\shom(\mathcal{F}/ \tor\mathcal{F},\mathcal{F})\ar[r] & \shom(\mathcal{F}/ \tor\mathcal{F},\mathcal{F})\ar[dll] \\
+  % & \Ext^{1}(\mathcal{F}/ \tor\mathcal{F},\tor\mathcal{F})\ar[r]& \Ext^{1}(\mathcal{F}/ \tor\mathcal{F},\mathcal{F}) \ar[r] & \Ext^{1}(\mathcal{F}/ \tor\mathcal{F}, \mathcal{F}/ \tor\mathcal{F}) \ar[r] & 0 &
+  %}$$
